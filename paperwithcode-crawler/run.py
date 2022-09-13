@@ -31,17 +31,27 @@ def main():
     with open(args.result, "w+") as f:
         print("="*20, file=f)
         for paper in result:
-            title = paper.get("paper").get("title")
+            paper_context = paper.get("paper")
+            title = paper_context.get("title")
+            url_abs = paper_context.get("url_abs")
+            url_pdf = paper_context.get("url_pdf")
+            published = paper_context.get("published")
             repos = paper.get("repos")
 
             print(f"{title}", file=f)
+            print(f"{url_abs}", file = f)
+            print(f"{url_pdf}", file = f)
+            print(f"Published {published}", file = f)
+
+            print("\nList of repositories:\n", file = f)
 
             if len(repos) == 0:
                 print("This paper doesn't have code implementation.", file=f)
             else:
                 for repository in repos:
-                    print("URL:", repository.get("url"), file=f)
-                    print("Is official?", repository.get("is_official"), file=f)
+                    repo_url, repo_is_official = repository.get("url"), repository.get("is_official")
+                    print(f"URL: {repo_url}", file=f)
+                    print(f"Official: {repo_is_official}", file=f)
             print("="*20, file=f)
 
     print(f"Wrote to {args.result} successfully.")

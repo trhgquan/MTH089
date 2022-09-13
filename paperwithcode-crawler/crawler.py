@@ -31,6 +31,9 @@ class PapersWithCodeCrawler:
 
                 paper_list.append({
                     "id": paper.get("id"),
+                    "url_abs": paper.get("url_abs"),
+                    "url_pdf": paper.get("url_pdf"),
+                    "published": paper.get("published"),
                     "title": paper.get("title")
                 })
 
