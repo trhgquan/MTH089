@@ -1,0 +1,106 @@
+====================
+Show and Tell: A Neural Image Caption Generator
+http://arxiv.org/abs/1411.4555v2
+http://arxiv.org/pdf/1411.4555v2.pdf
+Published 2014-11-17
+
+List of repositories:
+
+URL: https://github.com/rebnej/lick-caption-bias
+Official: False
+URL: https://github.com/anirbrhm/ImageCaptioning
+Official: False
+URL: https://github.com/juletx/image-caption-generation
+Official: False
+URL: https://github.com/rishavbb/Image_Captioning
+Official: False
+URL: https://github.com/sovit-123/Deep-Learning-Image-Captioning
+Official: False
+URL: https://github.com/patrickwilliams3/MyGoogleColabs
+Official: False
+URL: https://github.com/Pranav-Patil-7/Automatic_Image_Captioning_Project
+Official: False
+URL: https://github.com/kauravin/Neural-Visual-Image-Caption-Generation-using-RNNs-and-LSTMs
+Official: False
+URL: https://github.com/atun-MEI/AI-Course-Final
+Official: False
+URL: https://github.com/HughChi/Image-Caption
+Official: False
+====================
+Neural Machine Translation by Jointly Learning to Align and Translate
+http://arxiv.org/abs/1409.0473v7
+http://arxiv.org/pdf/1409.0473v7.pdf
+Published 2014-09-01
+
+List of repositories:
+
+URL: https://github.com/bkoch4142/attention-is-all-you-need-paper
+Official: False
+URL: https://github.com/brainsqueeze/text2vec
+Official: False
+URL: https://github.com/rileynwong/pytorch-seq2seq-joke2punchline
+Official: False
+URL: https://github.com/hnt4499/seq2seq
+Official: False
+URL: https://github.com/neqkir/attention-mechanism
+Official: False
+URL: https://github.com/Maab-Nimir/Neural-Machine-Translation-by-Jointly-Learning-to-Align-and-Translate
+Official: False
+URL: https://github.com/schwartznir/AbstrEncap
+Official: False
+URL: https://github.com/frozentoad9/Neural-Machine-Translation
+Official: False
+URL: https://github.com/Deep-Learning-at-UC-Merced/DeepLearningGroupReading
+Official: False
+URL: https://github.com/shawnyxiao/textclassification-keras
+Official: False
+====================
+Synthesizing Speech from Intracranial Depth Electrodes using an Encoder-Decoder Framework
+https://arxiv.org/abs/2111.01457v3
+https://arxiv.org/pdf/2111.01457v3.pdf
+Published 2021-11-02
+
+List of repositories:
+
+URL: https://github.com/jonaskohler/stereoeeg2speech
+Official: True
+====================
+You May Not Need Attention
+http://arxiv.org/abs/1810.13409v1
+http://arxiv.org/pdf/1810.13409v1.pdf
+Published 2018-10-31
+
+List of repositories:
+
+URL: https://github.com/ofirpress/YouMayNotNeedAttention
+Official: True
+====================
+The relational processing limits of classic and contemporary neural network models of language processing
+https://arxiv.org/abs/1905.05708v1
+https://arxiv.org/pdf/1905.05708v1.pdf
+Published 2019-05-12
+
+List of repositories:
+
+URL: https://github.com/GuillermoPuebla/RelationReasonNN
+Official: True
+====================
+Empirical Evaluation of Sequence-to-Sequence Models for Word Discovery in Low-resource Settings
+https://arxiv.org/abs/1907.00184v2
+https://arxiv.org/pdf/1907.00184v2.pdf
+Published 2019-06-29
+
+List of repositories:
+
+URL: https://gitlab.com/mzboito/attention_study
+Official: True
+====================
+Modelling Bahdanau Attention using Election methods aided by Q-Learning
+https://arxiv.org/abs/1911.03853v2
+https://arxiv.org/pdf/1911.03853v2.pdf
+Published 2019-11-10
+
+List of repositories:
+
+This paper doesn't have code implementation.
+====================

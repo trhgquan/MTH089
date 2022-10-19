@@ -1,0 +1,39 @@
+====================
+ODE Transformer: An Ordinary Differential Equation-Inspired Model for Sequence Generation
+https://arxiv.org/abs/2203.09176v1
+https://arxiv.org/pdf/2203.09176v1.pdf
+Published 2022-03-17
+
+List of repositories:
+
+URL: https://github.com/libeineu/ode-transformer
+Official: True
+====================
+Attention Is All You Need
+http://arxiv.org/abs/1706.03762v5
+http://arxiv.org/pdf/1706.03762v5.pdf
+Published 2017-06-12
+
+List of repositories:
+
+URL: https://github.com/deepmipt/bert/tree/feat/multi_gpu
+Official: False
+URL: https://github.com/shreyash8/English_to_Hindi_NMT
+Official: False
+URL: https://github.com/satyajitghana/TSAI-DeepNLP-END2.0
+Official: False
+URL: https://github.com/conceptofmind/LaMDA-pytorch
+Official: False
+URL: https://github.com/facebookresearch/xformers
+Official: False
+URL: https://github.com/vikashranjan/transformer
+Official: False
+URL: https://github.com/labmlai/annotated_deep_learning_paper_implementations
+Official: False
+URL: https://github.com/harenlin/IMDB-Sentiment-Analysis-Using-BERT-Fine-Tuning
+Official: False
+URL: https://github.com/LiamMaclean216/Pytorch-Transfomer
+Official: False
+URL: https://github.com/opennmt/ctranslate2
+Official: False
+====================

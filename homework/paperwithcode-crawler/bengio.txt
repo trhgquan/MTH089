@@ -1,0 +1,36 @@
+====================
+On the Properties of Neural Machine Translation: Encoder-Decoder Approaches
+http://arxiv.org/abs/1409.1259v2
+http://arxiv.org/pdf/1409.1259v2.pdf
+Published 2014-09-03
+
+List of repositories:
+
+URL: https://github.com/ictmcg/endef-sigir2022
+Official: False
+URL: https://github.com/AnkurDeria/HSI-Traditional-to-Deep-Models
+Official: False
+====================
+Pervasive Attention: 2D Convolutional Neural Networks for Sequence-to-Sequence Prediction
+http://arxiv.org/abs/1808.03867v3
+http://arxiv.org/pdf/1808.03867v3.pdf
+Published 2018-08-11
+
+List of repositories:
+
+URL: https://github.com/elbayadm/attn2d
+Official: True
+URL: https://github.com/tdiggelm/nn-experiments
+Official: False
+URL: https://github.com/poifull10/PervasiveAttentionNet
+Official: False
+====================
+On the Properties of Neural Machine Translation: Encoder--Decoder Approaches
+https://aclanthology.org/W14-4012
+https://aclanthology.org/W14-4012.pdf
+Published 2014-10-01
+
+List of repositories:
+
+This paper doesn't have code implementation.
+====================
