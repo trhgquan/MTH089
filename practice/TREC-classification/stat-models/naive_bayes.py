@@ -53,5 +53,6 @@ def main():
         print(
             f"{test_data[i]}\nPredicted: {idx2word[predicted[i]]}\nLabel: {idx2word[test_labels[i]]}")
 
+
 if __name__ == "__main__":
     main()

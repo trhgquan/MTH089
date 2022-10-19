@@ -1,9 +1,9 @@
 import pickle as pkl
 import random
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.svm import LinearSVC
+from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, f1_score, recall_score
 
 random.seed(42)
 
@@ -29,22 +29,21 @@ def main():
     test_labels = [word2idx[x["label-coarse"]] for _, x in test]
 
     # Vectorizing training corpus
-    svc_pipeline = Pipeline([
+    lr_pipeline = Pipeline([
         ("count_vectorizer", CountVectorizer(ngram_range=(1, 2))),
-        ("tfidf", TfidfTransformer(use_idf = True)),
-        ("svc", LinearSVC())
+        ("tfidf", TfidfTransformer(use_idf=True)),
+        ("lr", LogisticRegression(penalty="l2"))
     ])
 
     # Pick random sentence for testing
     example_test = random.sample(list(range(len(test_data))), 10)
 
-    # Training SVM with tfidf
-    svc_pipeline.fit(train_data, train_labels)
+    # Training LogisticRegression with CountVectorizer
+    lr_pipeline.fit(train_data, train_labels)
 
     print("Finished training - TFIDF")
 
-    # Prediction
-    predicted = svc_pipeline.predict(test_data)
+    predicted = lr_pipeline.predict(test_data)
 
     print(classification_report(predicted, test_labels))
     print(confusion_matrix(predicted, test_labels))
