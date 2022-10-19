@@ -1,7 +1,7 @@
 import pickle as pkl
 import random
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score, precision_score, recall_score, f1_score
 
 random.seed(42)
@@ -55,13 +55,13 @@ def main():
     # Pick random sentence for testing
     example_test = random.sample(list(range(len(test_data))), 10)
 
-    # Training SVM with CountVectorizer
-    svc = LinearSVC()
-    svc.fit(X_train_counts, train_labels)
+    # Training Multinomial NB with CountVectorizer
+    nb = MultinomialNB()
+    nb.fit(X_train_counts, train_labels)
 
     print("Finished training - CountVectorizer")
 
-    predicted = svc.predict(X_test_counts)
+    predicted = nb.predict(X_test_counts)
 
     print(classification_report(predicted, test_labels))
     print(confusion_matrix(predicted, test_labels))
@@ -71,14 +71,14 @@ def main():
         print(
             f"{test_data[i]}\nPredicted: {idx2word[predicted[i]]}\nLabel: {idx2word[test_labels[i]]}")
 
-    # Training SVM with tfidf
-    svc = LinearSVC()
-    svc.fit(X_train_tfidf, train_labels)
+    # Training Multinomial NB with tfidf
+    nb = MultinomialNB()
+    nb.fit(X_train_tfidf, train_labels)
 
     print("Finished training - TFIDF")
 
     # Prediction
-    predicted = svc.predict(X_test_tfidf)
+    predicted = nb.predict(X_test_tfidf)
 
     print(classification_report(predicted, test_labels))
     print(confusion_matrix(predicted, test_labels))
