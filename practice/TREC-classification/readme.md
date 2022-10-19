@@ -10,11 +10,8 @@ bash download.sh
 
 ## Stats
 
-| Model                                     | Accuracy | Precision (macro) | Recall (macro) | F1 score (macro) |
-| ----------------------------------------- | -------- | ----------------- | -------------- | ---------------- |
-| Logistic Regression (CountVectorizer)     | 0.852000 | 0.832893          | 0.893321       | 0.854778         |
-| Logistic Regression (TF-IDF)              | 0.852000 | 0.834321          | 0.888338       | 0.854695         |
-| Multinomial Naive Bayes (CountVectorizer) | 0.760000 | 0.707486          | 0.804387       | 0.721629         |
-| Multinomial Naive Bayes (TF-IDF)          | 0.760000 | 0.655242          | 0.645010       | 0.641378         |
-| SVC (CountVectorizer)                     | 0.876000 | 0.853393          | 0.905282       | 0.873627         |
-| SVC (TF-IDF)                              | 0.878000 | 0.859493          | 0.901867       | 0.875229         |
+| Model                                                     | Accuracy | Precision (macro) | Recall (macro) | F1 score (macro) |
+| --------------------------------------------------------- | -------- | ----------------- | -------------- | ---------------- |
+| Logistic Regression (TF-IDF & (1, 2) CountVectorizer)     | 0.852000 | 0.830745          | 0.897112       | 0.856029         |
+| Multinomial Naive Bayes (TF-IDF & (1, 2) CountVectorizer) | 0.832000 | 0.703944          | 0.699418       | 0.696869         |
+| SVC (TF-IDF & (1, 2) CountVectorizer)                     | 0.886000 | 0.862294          | 0.912049       | 0.882370         |
