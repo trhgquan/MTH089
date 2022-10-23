@@ -47,5 +47,5 @@ I trained with these hyperparameters:
 | --------------------------- | ------------ | ----------------- | -------------- | ---------------- |
 | Logistic Regression         | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
 | Multinomial Naive Bayes     | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
-| Support Vector Classifier   | **0.886000** | 0.862294      | **0.912049**   | **0.882370**     |
-| Multilayer Perceptron (MLP) | 0.828000     | **0.863599**          | 0.788308       | 0.813223         |
+| Support Vector Classifier   | **0.886000** | 0.862294          | **0.912049**   | **0.882370**     |
+| Multilayer Perceptron (MLP) | 0.828000     | **0.863599**      | 0.788308       | 0.813223         |
