@@ -26,8 +26,14 @@ I build a simple RNN network with these hyperparameters:
 - Loss function: `NLLLoss()`
 - Early stopping with `10 epochs patience`
 
+### GRU
+I replicated the RNN network above, but replaced RNN with GRU and using extra parameters:
+- `num_layers = 4` - using 4 layers of GRU.
+
 ## Statistics
 | Model                    | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
 | ------------------------ | ------------ | -------------------- | ----------------- | ------------------- |
 | Conditional Random Field | **0.956434** | **0.956282**         | **0.956434**      | **0.956170**        |
 | RNN                      | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
+| GRU                      | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
+
