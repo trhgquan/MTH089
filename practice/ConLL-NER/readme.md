@@ -30,10 +30,16 @@ I build a simple RNN network with these hyperparameters:
 I replicated the RNN network above, but replaced RNN with GRU and using extra parameters:
 - `num_layers = 4` - using 4 layers of GRU.
 
+### Bidirectional Gated Recurrent Units (BiGRU)
+A modified version of above architecture:
+- `bidirectional = True`. This leads to `in_features = 2 * hidden_size` in last dense layer.
+- `learning_rate = .001`.
+
 ## Statistics
-| Model                          | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
-| ------------------------------ | ------------ | -------------------- | ----------------- | ------------------- |
-| Conditional Random Field (CRF) | **0.956434** | **0.956282**         | **0.956434**      | **0.956170**        |
-| Recurrent Neural Network (RNN) | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
-| Gated Recurrent Units (GRU)    | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
+| Model                                       | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
+| ------------------------------------------- | ------------ | -------------------- | ----------------- | ------------------- |
+| Conditional Random Field (CRF)              | **0.956434** | **0.956282**         | **0.956434**      | **0.956170**        |
+| Recurrent Neural Network (RNN)              | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
+| Gated Recurrent Units (GRU)                 | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
+| Bidirectional Gated Recurrent Units (BiGRU) | 0.917024     | 0.912772             | 0.917024          | 0.913364            |
 
