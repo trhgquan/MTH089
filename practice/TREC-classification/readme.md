@@ -41,11 +41,24 @@ I trained with these hyperparameters:
 - `batch_size = 64`
 - Early stopping with `10 epochs patience`
 
+### Bidirectional Gated Gradient Units
+I built a simple GRU network:
+- Start with an embedding layer with `embedding_dim = 256`
+- Dropdown layer with `dropdown_rate = 0.5`
+- GRU `hidden_size = 512` and `num_layers = 4`
+- `loss = CrossEntropyLoss`
+- `Adam` optimizer with `learning_rate = 0.001`, `StepLR` scheduler with `step_size = 1` and `gamma = 0.1`
+- `clip_grad_norm_` with `max_norm = 0.1`
+- `epochs = 1000`
+- `batch_size = 64`
+- Early stopping with `20 epochs patience`
+
 ## Statistics
 
-| Model                       | Accuracy     | Precision (macro) | Recall (macro) | F1 score (macro) |
-| --------------------------- | ------------ | ----------------- | -------------- | ---------------- |
-| Logistic Regression         | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
-| Multinomial Naive Bayes     | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
-| Support Vector Classifier   | **0.886000** | 0.862294          | **0.912049**   | **0.882370**     |
-| Multilayer Perceptron (MLP) | 0.828000     | **0.863599**      | 0.788308       | 0.813223         |
+| Model                                      | Accuracy     | Precision (macro) | Recall (macro) | F1 score (macro) |
+| ------------------------------------------ | ------------ | ----------------- | -------------- | ---------------- |
+| Logistic Regression                        | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
+| Multinomial Naive Bayes                    | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
+| Support Vector Classifier                  | **0.886000** | 0.862294          | **0.912049**   | **0.882370**     |
+| Multilayer Perceptron (MLP)                | 0.828000     | **0.863599**      | 0.788308       | 0.813223         |
+| Bidirectional Gradient Gated Units (BiGRU) | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
