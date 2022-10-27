@@ -1,11 +1,11 @@
 #!/bin/python3
 
-from argparse import ArgumentParser, BooleanOptionalAction
+from argparse import ArgumentParser, BooleanOptionalAction, ArgumentDefaultsHelpFormatter
 from crawler import PapersWithCodeCrawler
 
 
 def main():
-    parser = ArgumentParser()
+    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
     parser.add_argument("--paper", required=True,
                         help="Paper name (accurately)")
     parser.add_argument("--result", required=True,
@@ -14,7 +14,7 @@ def main():
                         default=10, help="Max results paper")
     parser.add_argument("--max_repository_result", type=int,
                         default=10, help="Max repositories per paper")
-    parser.add_argument("--verbose", default=False,
+    parser.add_argument("--verbose", default=True,
                         action=BooleanOptionalAction, help="Show progress")
 
     args = parser.parse_args()
