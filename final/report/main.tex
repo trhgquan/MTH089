@@ -1,5 +1,7 @@
 \documentclass[12pt]{article}
 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{float}
@@ -258,13 +260,13 @@ DATE & 2549 & 1103 & 1654 & 5306 \\
 Các thông số huấn luyện được mô tả trong bảng \ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positives), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positives) và \textit{FN} là số lượng mẫu sai và được dự đoán sai. Công thức tính Precision, Reacall và F1-Score được định nghĩa như sau:
 \begin{equation*}
 \begin{aligned}
-Precision &= \frac{TP}{TP + FP} \\
-Recall &= \frac{TP}{TP + FN} \\
-F1 &= \frac{2 * Precision * Recall}{Precision + Recall}
+Precision (P) &= \frac{TP}{TP + FP} \\
+Recall (R) &= \frac{TP}{TP + FN} \\
+F1 &= \frac{2PR}{P + R}
 \end{aligned}
 \end{equation*}
 
-Kết quả huấn luyện của mô hình được mô tả trong bảng \ref{tab:results}. Mô hình sau khi huấn luyện đạt được 95\% precision, 94\% recall và 95\% f1-score.
+Mô hình sau khi huấn luyện đạt được 95\% precision, 94\% recall và 95\% f1-score khi đối chiếu với tập test của bộ dữ liệu COVID-19 đã nhắc ở phần trên. Kết quả huấn luyện của mô hình được mô tả trong bảng \ref{tab:results-test}.
 \begin{table}
 \centering
 \begin{tabular}{|l|c|}
@@ -283,6 +285,7 @@ dropout rate & 0.1 \\
 \caption{Thông số finetune mô hình VinHealthBERT cho tác vụ NER}
 \label{tab:configurations}
 \end{table}
+
 \begin{table}
 \centering
 \begin{tabular}{|l|l|l|l|}
@@ -298,14 +301,55 @@ GENDER                & 1.0000             & 0.9776          & 0.9887           
 ORGANIZATION          & 0.9064             & 0.9182          & 0.9123            \\ \hdashline
 JOB                   & 0.8659             & 0.8208          & 0.8427            \\ \hdashline
 AGE                   & 0.9803             & 0.9681          & 0.9741            \\ \hline
-micro avg             & 0.9592             & 0.9497          & 0.9545            \\ \hline
-macro avg             & 0.9592             & 0.9497          & 0.9544            \\ \hline
+\textbf{micro avg}    & 0.9592             & 0.9497          & 0.9545            \\ \hline
+\textbf{macro avg}    & 0.9592             & 0.9497          & 0.9544            \\ \hline
 \end{tabular}
-\caption{Kết quả finetune mô hình VinHealthBERT cho tác vụ NER trên tập validation}
-\label{tab:results}
+\caption{Kết quả finetune mô hình VinHealthBERT cho tác vụ NER trên tập test của bộ dữ liệu COVID-19}
+\label{tab:results-test}
 \end{table}
 
 \subsection{Xây dựng ứng dụng}
+Ứng dụng cần nhận biết và trích xuất các triệu chứng bệnh từ đầu vào là văn bản của người dùng. Do vậy, nhóm sẽ trích xuất các từ được gán nhãn \textit{SYMPTOM\_AND\_DISEASE} trong văn bản. Một ví dụ cho input (câu văn miêu tả triệu chứng) và output (danh sách các nhãn của câu) có thể thấy trong hình \ref{fig:example-result}.
+\begin{figure}
+\centering
+\includegraphics[scale=.5]{img/example-result.png}
+\caption{Một ví dụ cho input (câu văn miêu tả triệu chứng) và output (danh sách các nhãn của câu)}
+\label{fig:example-result}
+\end{figure}
+
+Khi đó thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE} được miêu tả như trong Thuật toán \ref{alg:ner-retriever}
+
+\begin{algorithm}
+\caption{Thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE}}
+\label{alg:ner-retriever}
+\begin{algorithmic}
+\Function {RetrieveSymptomsFromNERTags}{\textit{words}, \textit{labels}}
+\State $list\_symptoms \gets \{\}$
+\State $temp\_symptoms \gets \emptyset$
+\State $n \gets |label|$
+\For {$i \in [0, n - 1]$}
+\If {$labels_i$ = B-SYMPTOM\_AND\_DISEASE}
+\If {$temp\_symptoms \neq \emptyset$}
+    \State Thêm $temp\_symptoms$ vào $list\_symptoms$
+    \State $temp\_symptoms \gets words_i$
+\EndIf
+\ElsIf {$labels_i$ = I-SYMPTOM\_AND\_DISEASE}
+\State Thêm $words_i$ vào sau $temp\_symptoms$
+\EndIf
+\EndFor
+\State\Return list\_symptoms
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+Với thuật toán này, nhóm tiến hành xây dựng ứng dụng web cho phép người dùng nhập vào một câu văn (đoạn văn). Dữ liệu được đưa vào mô hình VinHealthBERT đã được finetune để gán nhãn, sau đó bộ nhãn và câu đầu vào sẽ được đưa vào thuật toán đã nêu để trích ra danh sách các triệu chứng. Workflow có thể được tóm tắt qua hình \ref{fig:workflow}. Nhóm sử dụng Flask framework để xây dựng ứng dụng web.
+
+\begin{figure}
+\centering
+\includegraphics[scale=.6]{img/workflow.png}
+\caption{Workflow ứng dụng trích xuất triệu chứng}
+\label{fig:workflow}
+\end{figure}
 
 \section{Hướng dẫn sử dụng ứng dụng}
 \subsection{Cài đặt}
