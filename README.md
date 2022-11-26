@@ -5,8 +5,11 @@ This repository stores (mostly) homeworks.
 
 ## Topics
 
+### Final
+- We creatd a Symptoms Extraction, using [ViHealthBERT](https://github.com/trhgquan/DemoVnHealthBERT).
+
 ### Homework
-- Create a GitHub Crawler, in which receive a Paper Name and output the GitHub links of that paper's implementation.
+- I created a GitHub Crawler, in which receive a Paper Name and output the GitHub links of that paper's implementation.
 
 ### Practice
 - TREC Classification: question type classification, using TREC dataset.

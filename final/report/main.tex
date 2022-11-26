@@ -212,7 +212,7 @@ Mô hình ViHealthBERT sử dụng kiến trúc của BERT (12 encoder layer, 76
 \end{center}
 \end{figure}
 
-\section{Ứng dụng bài toán Medical NER xây dựng công cụ trích xuất danh sách triệu chứng từ miêu tả của bệnh nhân}
+\section{Ứng dụng mô hình ViHealthBERT xây dựng công cụ trích xuất danh sách triệu chứng từ miêu tả của bệnh nhân}
 \subsection{Động lực}
 Một số bệnh viện có thiết lập hệ thống tư vấn bệnh trực tuyến: người bệnh gửi thông tin cá nhân cùng miêu tả triệu chứng, bác sĩ sẽ đọc và đưa ra chẩn đoán dựa trên miêu tả của người bệnh. Tuy nhiên, đôi khi người bệnh đưa ra nhiều thông tin không liên quan, trong khi bác sĩ chỉ cần danh sách các triệu chứng cụ thể để biết được bệnh nhân đang gặp vấn đề gì.
 
@@ -257,7 +257,7 @@ DATE & 2549 & 1103 & 1654 & 5306 \\
 \end{table}
 
 \subsubsection{Thông số huấn luyện và kết quả}
-Các thông số huấn luyện được mô tả trong bảng \ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positives), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positives) và \textit{FN} là số lượng mẫu sai và được dự đoán sai. Công thức tính Precision, Reacall và F1-Score được định nghĩa như sau:
+Các thông số huấn luyện được mô tả trong bảng \ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positives), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positives) và \textit{FN} là số lượng mẫu sai và được dự đoán sai (False Negatives). Công thức tính Precision, Reacall và F1-Score được định nghĩa như sau:
 \begin{equation*}
 \begin{aligned}
 Precision (P) &= \frac{TP}{TP + FP} \\
@@ -317,7 +317,7 @@ AGE                   & 0.9803             & 0.9681          & 0.9741           
 \label{fig:example-result}
 \end{figure}
 
-Khi đó thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE} được miêu tả như trong Thuật toán \ref{alg:ner-retriever}
+Thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE} được miêu tả trong Thuật toán \ref{alg:ner-retriever}
 
 \begin{algorithm}
 \caption{Thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE}}
@@ -331,8 +331,8 @@ Khi đó thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE} �
 \If {$labels_i$ = B-SYMPTOM\_AND\_DISEASE}
 \If {$temp\_symptoms \neq \emptyset$}
     \State Thêm $temp\_symptoms$ vào $list\_symptoms$
-    \State $temp\_symptoms \gets words_i$
 \EndIf
+\State $temp\_symptoms \gets words_i$
 \ElsIf {$labels_i$ = I-SYMPTOM\_AND\_DISEASE}
 \State Thêm $words_i$ vào sau $temp\_symptoms$
 \EndIf
@@ -342,14 +342,15 @@ Khi đó thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE} �
 \end{algorithmic}
 \end{algorithm}
 
-Với thuật toán này, nhóm tiến hành xây dựng ứng dụng web cho phép người dùng nhập vào một câu văn (đoạn văn). Dữ liệu được đưa vào mô hình VinHealthBERT đã được finetune để gán nhãn, sau đó bộ nhãn và câu đầu vào sẽ được đưa vào thuật toán đã nêu để trích ra danh sách các triệu chứng. Workflow có thể được tóm tắt qua hình \ref{fig:workflow}. Nhóm sử dụng Flask framework để xây dựng ứng dụng web.
-
+Với thuật toán này, nhóm tiến hành xây dựng ứng dụng web cho phép người dùng nhập vào một câu văn (đoạn văn). Dữ liệu được đưa vào mô hình VinHealthBERT đã được finetune để gán nhãn, sau đó bộ nhãn và câu đầu vào sẽ được đưa vào thuật toán đã nêu để trích ra danh sách các triệu chứng. Workflow có thể được tóm tắt qua hình \ref{fig:workflow}.
 \begin{figure}
 \centering
 \includegraphics[scale=.6]{img/workflow.png}
 \caption{Workflow ứng dụng trích xuất triệu chứng}
 \label{fig:workflow}
 \end{figure}
+Nhóm sử dụng Flask framework để xây dựng ứng dụng web.
+%% TODO: more description here
 
 \section{Hướng dẫn sử dụng ứng dụng}
 \subsection{Cài đặt}
