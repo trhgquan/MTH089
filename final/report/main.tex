@@ -22,7 +22,6 @@
 \fancyfoot{}
 \fancyfoot[R]{Page \thepage}
 
-
 \lhead{
 Báo cáo đồ án môn học
 }
@@ -90,7 +89,7 @@ TS. Nguyễn Tiến Huy
 Trong những năm gần đây, các mô hình ngôn ngữ (Language Models - LM) được xây dựng và ứng dụng rộng rãi trong lĩnh vực Xử lý ngôn ngữ tự nhiên (NLP), chúng cũng đạt được nhiều kết quả đáng chú ý. Đặc biệt, chất lượng các mô hình đơn ngữ được huấn luyện sẵn dành cho những ngôn ngữ ít tài nguyên ngữ liệu đã tăng đáng kể. Đáng lưu ý, mặc dù các mô hình ngôn ngữ cho miền chung (general-domain language models) rất đa dạng, nhưng có rất ít các mô hình ngôn ngữ đặc thù dành riêng cho một số lĩnh vực (specific-domain language models). Vì lí do đó, nhóm tác giả bài báo \textit{ViHealthBERT: Pre-trained Language Models for Vietnamese in Health Text Mining}\cite{minh-EtAl:2022:LREC} công bố bài báo với những đóng góp sau:
 \begin{itemize}
 \item Giới thiệu mô hình ViHealthBERT là mô hình ngôn ngữ Tiếng Việt đặc thù cho lĩnh vực y tế.
-\item Giới thiệu các bộ ngữ liệu Acronym Disambiguation (AD) và Freqently Asked Question (FAQ) Summarization là các bộ ngữ liệu đặc thù cho ngành y tế.
+\item Giới thiệu các bộ ngữ liệu Acronym Disambiguation (AD) và Freqently Asked Question (FAQ) Summarization là các bộ ngữ liệu đặc thù cho lĩnh vực y tế.
 \end{itemize}
 
 % Các mô hình ngôn ngữ quy mô lớn gần đây cho thấy những thành tựu đáng kể trong các tác vụ xử lý ngôn ngữ tự nhiên (NLP) chính như Hệ thống hỏi đáp(Q\&A) và Tóm tắt nội dung văn bản (Raffel et al., 2020). Nhiều nghiên cứu đã phát hiện ra các mô hình ngôn ngữ đa ngôn ngữ đều có hiệu suất tốt hơn trong một loạt các nhiệm vụ liên tiếp song son nhau (downstream tasks) mà không cần xem xét tính chất ngôn ngữ của nó và rất nhiều ngôn ngữ có nguồn lực thấp được hưởng lợi từ điều này.
@@ -104,12 +103,12 @@ Trong những năm gần đây, các mô hình ngôn ngữ (Language Models - LM
 % Có thể thấy rằng hiện có rất nhiều công trình nghiên cứu về NLP trong các lĩnh vực, tuy nhiên các nghiên cứu mà giải quyết các nhiệm vụ dành riêng cho lĩnh vực với tiếng Việt vẫn còn rất ít, vì các nghiên cứu về mô hình ngôn ngữ tiếng Việt hiện tại vẫn tập trung vào lĩnh vực chung chung
 % Trong lĩnh vực y tế ,chăm sóc sức khỏe việc tận dụng các mô hình NLP đã được đào tạo trước của các lĩnh vực nói chung cho các downstream tasks không đơn giản đối với một ngôn ngữ tài nguyên thấp như tiếng Việt.Đã có một số ngiên cứu nỗ lực để phát triển kho ngữ liệu y tế sức khỏe tại Việt Nam để áp dụng cho các tác vụ NLP như:
 % \begin{itemize}
-%     \item Bộ dữ liệu COVID-19 NER (Covid-19 Named Entity Recognition for Vietnamese) (Truong et al. 2021) là bộ dữ liệu được báo cáo đầu tiên liên quan đến lĩnh vực chăm sóc sức khỏe, dựa trên văn bản tin tức.
-%     \item ViMQ (Tiếng Việt) : Bộ dữ liệu Câu hỏi Y tế) (Huy et al. 2021) được giới thiệu để phát triển các chatbot chăm sóc sức khỏe, bắt nguồn từ các câu hỏi y tế.
+%     \item bộ ngữ liệu COVID-19 NER (Covid-19 Named Entity Recognition for Vietnamese) (Truong et al. 2021) là bộ ngữ liệu được báo cáo đầu tiên liên quan đến lĩnh vực chăm sóc sức khỏe, dựa trên văn bản tin tức.
+%     \item ViMQ (Tiếng Việt) : bộ ngữ liệu Câu hỏi Y tế) (Huy et al. 2021) được giới thiệu để phát triển các chatbot chăm sóc sức khỏe, bắt nguồn từ các câu hỏi y tế.
 % \end{itemize}
 % Các nghiên cứu trên có một số đều thể hiện một số ưu điểm,hoạt động tích cực nhưng bên cạnh dó vẫn còn tồn tại một số khó khăn ,thách thức khi phát triểnnhư : Thiếu không gian lưu trữ dữ liệu trong các kho ngữ liệu.Các dữ liệu EHRs (Electronic Health Records) trong một số hệ thống chăm sóc sức khỏe lỗi thời, độ chính xác, hiệu suất khi hoạt động chưa cao → chưa đáp ứng trải nghiệm của người dùng và chưa có bộ mô hình Tiếng Việt xây dựng riêng cho lĩnh vực y tế.
 % Trên cơ sở đó, nhóm tác giả bài báo giới thiệu mô hình ViHealthBERT\cite{minh-EtAl:2022:LREC} đã được đào tạo trước trong lĩnh vực sức khỏe. 
-% Trong mô hình này , nhóm tác giả đã thực hiện giai đoạn pre-trained của mô hình theo các nhiệm vụ : Nhận dạng tên thực thể (NER) , Hỏi đáp vễ lĩnh vực y tế , phân định từ viết tắt và tóm tắt nội dung trong văn bản truy vấn mà người dùng đưa ra.Đến với giai đoạn thực nghiệm mô hình , nhóm tác giả sẽ áp dụng 2 tập dữ liệu lớn : acrDrAid( một bộ dữ liệu được gắn nhãn con người cho nhiệm vụ Phân biệt từ viết tắt (AD). Đây là bộ dữ liệu AD đầu tiên bằng tiếng Việt)và  Frequently Asked Questions (FAQ) Summarization.
+% Trong mô hình này , nhóm tác giả đã thực hiện giai đoạn pre-trained của mô hình theo các nhiệm vụ : Nhận dạng tên thực thể (NER) , Hỏi đáp vễ lĩnh vực y tế , phân định từ viết tắt và tóm tắt nội dung trong văn bản truy vấn mà người dùng đưa ra.Đến với giai đoạn thực nghiệm mô hình , nhóm tác giả sẽ áp dụng 2 tập dữ liệu lớn : acrDrAid( một bộ ngữ liệu được gắn nhãn con người cho nhiệm vụ Phân biệt từ viết tắt (AD). Đây là bộ ngữ liệu AD đầu tiên bằng tiếng Việt)và  Frequently Asked Questions (FAQ) Summarization.
 
 % \subsection{Mô hình BERT}
 % \textbf {BERT }là viết tắt của cụm từ\textbf { Bidirectional Encoder Representation from Transformer} có nghĩa là mô hình biểu diễn từ theo 2 chiều ứng dụng kỹ thuật Transformer. BERT được thiết kế để huấn luyện trước các biểu diễn từ (pre-train word embedding). Điểm đặc biệt ở BERT đó là nó có thể điều hòa cân bằng bối cảnh theo cả 2 chiều trái và phải.
@@ -129,7 +128,7 @@ Trong những năm gần đây, các mô hình ngôn ngữ (Language Models - LM
 % \item Trong kết quả trả ra ở output của transformer ta sẽ cố định kết quả của câu Question sao cho trùng với câu Question ở input. Các vị trí còn lại sẽ là thành phần mở rộng Start/End Span tương ứng với câu trả lời tìm được từ câu input.
 % \end{enumerate}
 % \subsubsection{Masked Language Modeling (MLM)}
-% Masked ML là một tác vụ cho phép chúng ta finetuning lại các biểu diễn từ trên các bộ dữ liệu unsupervised-text bất kỳ. Chúng ta có thể áp dụng Masked ML cho những ngôn ngữ khác nhau để tạo ra biểu diễn embedding cho chúng.
+% Masked ML là một tác vụ cho phép chúng ta finetuning lại các biểu diễn từ trên các bộ ngữ liệu unsupervised-text bất kỳ. Chúng ta có thể áp dụng Masked ML cho những ngôn ngữ khác nhau để tạo ra biểu diễn embedding cho chúng.
 % \begin{figure}[!htb]
 % \begin{center}
 % \includegraphics[scale=.35]{img/mlm.png}
@@ -185,7 +184,7 @@ Phần Encoder của Transformer được sử dụng trong mô hình BERT (\tex
 \caption{Mô hình BERT\cite{devlin-etal-2019-bert}}
 \label{fig:my_label}
 \end{figure}
-BERT được tiền huấn luyện (pretraining) với bộ ngữ liệu \textit{BookCorpus} (800 triệu từ) và \textit{Wikipedia English} (2500 triệu từ), sau đó finetune lại cho từng task khác nhau. Sau khi BERT được công bố, nhiều mô hình cải tiến của BERT cũng được giới thiệu dựa trên kiến trúc của BERT, trong đó có thể kể đến
+BERT được tiền huấn luyện (pretraining) với bộ ngữ liệu \textit{BookCorpus} (800 triệu từ) và \textit{Wikipedia English} (2500 triệu từ), sau đó tinh chỉnh (finetune) lại cho từng task khác nhau. Sau khi BERT được công bố, nhiều mô hình cải tiến của BERT cũng được giới thiệu dựa trên kiến trúc của BERT, trong đó có thể kể đến
 \begin{itemize}
 \item \textbf{RoBERTa} (\textbf{R}obustly \textbf{o}ptimized \textbf{BERT} Pretraining \textbf{a}pproach)\cite{DBLP:journals/corr/abs-1907-11692}: sử dụng dynamic masking so với sử dụng static masking trong kiến trúc gốc; huấn luyện trên nhiều ngữ liệu hơn.
 \item \textbf{DistilBERT}\cite{DBLP:journals/corr/abs-1910-01108}: mô hình nhỏ, nhanh, tốn ít chi phí huấn luyện hơn mô hình BERT gốc: có ít hơn 40\% parameters, chạy nhanh hơn 60\% nhưng hiệu quả bằng 95\% so với mô hình gốc.
@@ -203,7 +202,7 @@ PhoBERT được pretrain với bộ ngữ liệu \textit{Wikipedia Tiếng Vi�
 Mô hình ViHealthBERT sử dụng kiến trúc của BERT (12 encoder layer, 768 hidden units, 12 attention heads) với bộ trọng số huấn luyện của PhoBERT. Việc huấn luyện ViHealthBERT chia làm 2 giai đoạn:
 \begin{itemize}
 \item \textbf{Giai đoạn pretraining}: Huấn luyện trên các bộ ngữ liệu \textit{Text Mining Corpus} và \textit{OSCAR} : Masked Language Modeling (MLM), Capitalized Prediction (CP) và Next Sentence Prediction (NSP).
-\item \textbf{Giai đoạn finetuning}: Finetuning trên các bộ ngữ liệu \textit{COVID-19, VimQ, arcDrid} và \textit{FAQ Summarization}: Named-Entity Recognition (NER), Acronym Disambiguation và FAQ Summarization
+\item \textbf{Giai đoạn finetuning}: Finetuning trên các bộ ngữ liệu \textit{PhoNER\_COVID-19, VimQ, arcDrid} và \textit{FAQ Summarization}: Named-Entity Recognition (NER), Acronym Disambiguation và FAQ Summarization
 \end{itemize}
 \begin{figure}
 \begin{center}
@@ -220,7 +219,7 @@ Nhóm đề xuất sử dụng mô hình ViHealthBERT ứng dụng vào bài to�
 
 \subsection{Finetune mô hình ViHealthBERT cho tác vụ NER}
 \subsubsection{Ngữ liệu huấn luyện}
-Nhóm tiến hành finetune lại mô hình ViHealthBERT để giải quyết bài toán Medical NER Tiếng Việt trên tập dữ liệu COVID-19 NER\cite{truong-etal-2021-covid}. Bộ ngữ liệu có các thông số được trình bày trong bảng \ref{tab:covid-ner-vietnamese-stats}
+Nhóm tiến hành finetune lại mô hình ViHealthBERT để giải quyết bài toán Medical NER Tiếng Việt trên tập ngữ liệu PhoNER\_COVID19\cite{truong-etal-2021-covid}. Bộ ngữ liệu có các thông số được trình bày trong bảng~\ref{tab:covid-ner-vietnamese-stats}
 \begin{table}
 \centering
 \begin{tabular}{|l|l|l|l|l|l|}
@@ -252,12 +251,12 @@ DATE & 2549 & 1103 & 1654 & 5306 \\
 \# Sentences in total & 5027 & 2000 & 3000 & 10027 \\
 \hline
 \end{tabular}
-\caption{Các thông số của tập ngữ liệu COVID-19\cite{truong-etal-2021-covid}}
+\caption{Các thông số của tập ngữ liệu PhoNER\_COVID19\cite{truong-etal-2021-covid}}
 \label{tab:covid-ner-vietnamese-stats}
 \end{table}
 
 \subsubsection{Thông số huấn luyện và kết quả}
-Các thông số huấn luyện được mô tả trong bảng \ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positives), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positives) và \textit{FN} là số lượng mẫu sai và được dự đoán sai (False Negatives). Công thức tính Precision, Reacall và F1-Score được định nghĩa như sau:
+Các thông số huấn luyện được mô tả trong bảng~\ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positive), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positive) và \textit{FN} là số lượng mẫu sai và được dự đoán sai (False Negative). Công thức tính Precision, Recall và F1-Score được định nghĩa như sau:
 \begin{equation*}
 \begin{aligned}
 Precision (P) &= \frac{TP}{TP + FP} \\
@@ -266,7 +265,7 @@ F1 &= \frac{2PR}{P + R}
 \end{aligned}
 \end{equation*}
 
-Mô hình sau khi huấn luyện đạt được 95\% precision, 94\% recall và 95\% f1-score khi đối chiếu với tập test của bộ dữ liệu COVID-19 đã nhắc ở phần trên. Kết quả huấn luyện của mô hình được mô tả trong bảng \ref{tab:results-test}.
+Mô hình sau khi huấn luyện đạt được 95\% Precision, 94\% Recall và 95\% F1-Score khi đối chiếu với tập test của bộ ngữ liệu PhoNER\_COVID-19 đã nhắc ở phần trên. Kết quả huấn luyện của mô hình được mô tả trong bảng~\ref{tab:results-test}.
 \begin{table}
 \centering
 \begin{tabular}{|l|c|}
@@ -282,7 +281,7 @@ learning rate & 5e-5 \\
 dropout rate & 0.1 \\
 \hline
 \end{tabular}
-\caption{Thông số finetune mô hình VinHealthBERT cho tác vụ NER}
+\caption{Thông số finetune mô hình ViHealthBERT cho tác vụ NER}
 \label{tab:configurations}
 \end{table}
 
@@ -304,12 +303,12 @@ AGE                   & 0.9803             & 0.9681          & 0.9741           
 \textbf{micro avg}    & 0.9592             & 0.9497          & 0.9545            \\ \hline
 \textbf{macro avg}    & 0.9592             & 0.9497          & 0.9544            \\ \hline
 \end{tabular}
-\caption{Kết quả finetune mô hình VinHealthBERT cho tác vụ NER trên tập test của bộ dữ liệu COVID-19}
+\caption{Kết quả finetune mô hình ViHealthBERT cho tác vụ NER trên tập test của bộ ngữ liệu PhoNER\_COVID-19}
 \label{tab:results-test}
 \end{table}
 
 \subsection{Xây dựng ứng dụng}
-Ứng dụng cần nhận biết và trích xuất các triệu chứng bệnh từ đầu vào là văn bản của người dùng. Do vậy, nhóm sẽ trích xuất các từ được gán nhãn \textit{SYMPTOM\_AND\_DISEASE} trong văn bản. Một ví dụ cho input (câu văn miêu tả triệu chứng) và output (danh sách các nhãn của câu) có thể thấy trong hình \ref{fig:example-result}.
+Ứng dụng cần nhận biết và trích xuất các triệu chứng bệnh từ đầu vào là văn bản của người dùng. Do vậy, nhóm sẽ trích xuất các từ được gán nhãn \textit{SYMPTOM\_AND\_DISEASE} trong văn bản. Một ví dụ cho input (câu văn miêu tả triệu chứng) và output (danh sách các nhãn của câu) có thể thấy trong hình~\ref{fig:example-result}.
 \begin{figure}
 \centering
 \includegraphics[scale=.5]{img/example-result.png}
@@ -342,7 +341,7 @@ Thuật toán trích xuất các nhãn \textit{SYMPTOM\_AND\_DISEASE} được m
 \end{algorithmic}
 \end{algorithm}
 
-Với thuật toán này, nhóm tiến hành xây dựng ứng dụng web cho phép người dùng nhập vào một câu văn (đoạn văn). Dữ liệu được đưa vào mô hình VinHealthBERT đã được finetune để gán nhãn, sau đó bộ nhãn và câu đầu vào sẽ được đưa vào thuật toán đã nêu để trích ra danh sách các triệu chứng. Workflow có thể được tóm tắt qua hình \ref{fig:workflow}.
+Với thuật toán này, nhóm tiến hành xây dựng ứng dụng web cho phép người dùng nhập vào một câu văn (đoạn văn). Dữ liệu được đưa vào mô hình ViHealthBERT đã được finetune để gán nhãn, sau đó bộ nhãn và câu đầu vào sẽ được đưa vào thuật toán đã nêu để trích ra danh sách các triệu chứng. Workflow của ứng dụng có thể được tóm tắt qua hình~\ref{fig:workflow}.
 \begin{figure}
 \centering
 \includegraphics[scale=.6]{img/workflow.png}
@@ -357,7 +356,20 @@ Nhóm sử dụng Flask framework để xây dựng ứng dụng web.
 
 \subsection{Chạy thử}
 
-\cleardoublepage
+\section{Tổng kết}
+Qua đồ án này, nhóm xin tổng kết lại các nội dung đã thực hiện:
+\begin{itemize}
+\item Nhóm finetune mô hình ViHealthBERT cho tác vụ NER dùng bộ ngữ liệu PhoNER\_COVID19. Mô hình sau khi finetune đạt được 95\% Precision, 94\% Recall và 95\% F1-Score khi đối chiếu với tập test của bộ ngữ liệu PhoNER\_COVID-19.
+\item Từ mô hình đã huấn luyện, nhóm xây dựng một ứng dụng hỗ trợ trích xuất các triệu chứng bệnh từ mô tả của người dùng.
+\end{itemize}
+Trong tương lai, nhóm đề xuất một số hướng cải tiến ứng dụng nhằm mang lại hiệu quả và trải nghiệm tốt nhất cho người sử dụng. Một số hướng cải tiến nhóm đề xuất bao gồm:
+\begin{itemize}
+\item Xây dựng một module chẩn đoán bệnh dựa trên danh sách các triệu chứng. Danh sách triệu chứng hiện có sẽ được đưa qua một mạng neural đơn giản (hoặc một mô hình học máy như Conditional Random Fields) để đưa ra chẩn đoán nhanh. Tuy nhiên người bệnh vẫn cần tham khảo ý kiến của bác sĩ để có được chẩn đoán chính xác nhất.
+\item Hỗ trợ nhập liệu từ file. Khi đó hệ thống có thể trích xuất và đưa ra danh sách triệu chứng của nhiều bệnh nhân cùng lúc.
+\end{itemize}
+
+
+% \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{section}{Tài liệu}
 \bibliographystyle{apalike}
