@@ -13,7 +13,7 @@ This repository stores (mostly) homeworks.
 
 ### Practice
 - TREC Classification: question type classification, using TREC dataset.
-- ConLL POS-Tagging: named-entity-recognition - identify named entity in a sentence, using ConLL 2003 dataset.
+- ConLL NER: identify named entity in a sentence, using ConLL 2003 dataset.
 
 ## License
 These works are licensed under [The GPL v3.0](LICENSE)
