@@ -46,7 +46,7 @@ A modified version of above architecture:
 - `learning_rate = .001`.
 
 ### Finetuning DistilBERT
-We use the [ConLL2003 dataset from huggingface](https://huggingface.co/datasets/conll2003). Configurations as below:
+I use the [ConLL2003 dataset from huggingface](https://huggingface.co/datasets/conll2003). Configurations as below:
 - `learning_rate` : 2e-5
 - `batch_size` : 16
 - `weight_decay` : .01

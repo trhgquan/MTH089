@@ -14,9 +14,10 @@ bash download.sh
 | ------------------------------------------ | ------------ | ----------------- | -------------- | ---------------- |
 | Logistic Regression                        | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
 | Multinomial Naive Bayes                    | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
-| Support Vector Classifier                  | **0.886000** | 0.862294          | **0.912049**   | **0.882370**     |
-| Multilayer Perceptron (MLP)                | 0.828000     | **0.863599**      | 0.788308       | 0.813223         |
+| Support Vector Classifier                  | 0.886000     | 0.862294          | 0.912049       | 0.882370         |
+| Multilayer Perceptron (MLP)                | 0.828000     | 0.863599          | 0.788308       | 0.813223         |
 | Bidirectional Gradient Gated Units (BiGRU) | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
+| Finetuned DistilBERT                       | **0.972000** | **0.970000**      | **0.970000**   | **0.970000**     |
 
 ### Logistic Regression
 I used `sklearn.linear_model.LogisticRegression` with `penalty="l2"`. The pipeline include
@@ -61,3 +62,10 @@ I built a simple GRU network:
 - `epochs = 1000`
 - `batch_size = 64`
 - Early stopping with `20 epochs patience`
+
+### Finetuned DistilBERT
+I finetuned DistilBERT with
+- `epochs` : 5
+- `batch_size` : 16
+- `weight_decay` : .01
+- `learning_rate` : 2e-5
