@@ -15,7 +15,6 @@ I use Conditional Random Field with several rules, mostly defining a noun and pe
 - `max_iterations = 100`
 - `all_possible_transitions = True`
 
-
 ### Recurrent Neural Network (RNN)
 I build a simple RNN network with these hyperparameters:
 - `embedding_dim = 64`
@@ -45,6 +44,9 @@ We use the [ConLL2003 dataset from huggingface](https://huggingface.co/datasets/
 
 Training stopped at 3600 steps.
 
+## Finetuning DistilRoBERTa
+Using the same configurations as the DistilBERT finetuning.
+
 ## Statistics
 | Model                                       | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
 | ------------------------------------------- | ------------ | -------------------- | ----------------- | ------------------- |
@@ -53,5 +55,4 @@ Training stopped at 3600 steps.
 | Gated Recurrent Units (GRU)                 | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
 | Bidirectional Gated Recurrent Units (BiGRU) | 0.917024     | 0.912772             | 0.917024          | 0.913364            |
 | Finetuned DistilBERT                        | **0.975054** | 0.889020             | 0.892713          | 0.890863            |
-
-
+| Finetuned DistilRoBERTa                     | 0.970929     | 0.888856             | 0.901074          | 0.894923            |
