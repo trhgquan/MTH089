@@ -36,7 +36,14 @@ A modified version of above architecture:
 - `learning_rate = .001`.
 
 ### Finetuning DistilBERT
-We use the [ConLL2003 dataset from huggingface](https://huggingface.co/datasets/conll2003), finetuning with 1300 steps. Early stopping enabled with `3 steps patience`, using `val_loss` as the evaluation metric.  
+We use the [ConLL2003 dataset from huggingface](https://huggingface.co/datasets/conll2003). Configurations as below:
+- `learning_rate` : 2e-5
+- `batch_size` : 16
+- `weight_decay` : .01
+- `early_stopping_patience` : 3 (steps)
+- `best_model_metrics` : `eval_loss`
+
+Training stopped at 3600 steps.
 
 ## Statistics
 | Model                                       | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
@@ -45,6 +52,6 @@ We use the [ConLL2003 dataset from huggingface](https://huggingface.co/datasets/
 | Recurrent Neural Network (RNN)              | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
 | Gated Recurrent Units (GRU)                 | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
 | Bidirectional Gated Recurrent Units (BiGRU) | 0.917024     | 0.912772             | 0.917024          | 0.913364            |
-| Finetuned DistilBERT                        | **0.970962** | 0.876167             | 0.880014          | 0.878086            |
+| Finetuned DistilBERT                        | **0.975054** | 0.889020             | 0.892713          | 0.890863            |
 
 
