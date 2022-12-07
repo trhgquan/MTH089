@@ -17,7 +17,7 @@ bash download.sh
 | Support Vector Classifier                  | 0.886000     | 0.862294          | 0.912049       | 0.882370         |
 | Multilayer Perceptron (MLP)                | 0.828000     | 0.863599          | 0.788308       | 0.813223         |
 | Bidirectional Gradient Gated Units (BiGRU) | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
-| Finetuned DistilBERT                       | **0.972000** | **0.974115**      | **0.976840**   | **0.975185**     |
+| Finetuned DistilBERT                       | **0.974000** | **0.976173**      | **0.977431**   | **0.976423**     |
 
 ### Logistic Regression
 I used `sklearn.linear_model.LogisticRegression` with `penalty="l2"`. The pipeline include
@@ -65,7 +65,7 @@ I built a simple GRU network:
 
 ### Finetuned DistilBERT
 I finetuned DistilBERT with
-- `epochs` : 5
-- `batch_size` : 16
-- `weight_decay` : .01
-- `learning_rate` : 2e-5
+- `epochs = 5`
+- `batch_size = 16`
+- `weight_decay = .01`
+- `learning_rate = 2e-5`
