@@ -1,0 +1,11 @@
+\section{Tổng kết}
+Qua đồ án này, nhóm xin tổng kết lại các nội dung đã thực hiện:
+\begin{itemize}
+\item Nhóm finetune mô hình ViHealthBERT cho tác vụ NER dùng bộ ngữ liệu PhoNER\_COVID19. Mô hình sau khi finetune đạt được 95\% Precision, 94\% Recall và 95\% F1-Score khi đối chiếu với tập test của bộ ngữ liệu PhoNER\_COVID-19.
+\item Từ mô hình đã huấn luyện, nhóm xây dựng một ứng dụng hỗ trợ trích xuất các triệu chứng bệnh từ mô tả của người dùng.
+\end{itemize}
+Trong tương lai, nhóm đề xuất một số hướng cải tiến ứng dụng nhằm mang lại hiệu quả và trải nghiệm tốt nhất cho người sử dụng. Một số hướng cải tiến nhóm đề xuất bao gồm:
+\begin{itemize}
+\item Xây dựng một module chẩn đoán bệnh dựa trên danh sách các triệu chứng. Danh sách triệu chứng hiện có sẽ được đưa qua một mạng neural đơn giản hoặc một mô hình học máy như Conditional Random Fields để đưa ra chẩn đoán nhanh. Tuy nhiên người bệnh vẫn cần tham khảo ý kiến của bác sĩ để có được chẩn đoán chính xác nhất.
+\item Hỗ trợ nhập liệu từ file. Khi đó hệ thống có thể trích xuất và đưa ra danh sách triệu chứng của nhiều bệnh nhân cùng lúc.
+\end{itemize}
