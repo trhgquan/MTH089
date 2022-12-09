@@ -43,8 +43,8 @@ SimCSE (\textbf{Sim}ple \textbf{C}ontrastive Learning of \textbf{S}entence \text
 \end{itemize}
 Bộ phân lớp SimCSE sau khi huấn luyện có thể xác định xem một văn bản có liên quan tới chủ đề y tế hay không. Dựa trên bộ phân lớp này, nhóm tác giả tiến hành trích xuất các văn bản liên quan đến chủ đề y tế từ các bộ ngữ liệu lớn hơn.
 
-\subsection{Finetuning}
-Nhóm tác giả xây dựng các bộ ngữ liệu \textit{arcDrAid} và \textit{Frequently Asked Question (FAQ) Summarization} cho các finetuning task:
+\subsection{Downstream task datasets}
+Nhóm tác giả xây dựng các bộ ngữ liệu \textit{arcDrAid} và \textit{Frequently Asked Question (FAQ) Summarization} cho các downstream task:
 \begin{itemize}
 \item Acronym Disambiguation \textit{(Phân định từ viết tắt)}: xác định cụm từ đầy đủ của một từ viết tắt trong một ngữ cảnh nhất định. (e.g. \textit{vctc} có thể là \textit{viêm cổ tử cung} hoặc \textit{viêm cầu thận cấp}, tùy vào ngữ cảnh)
 \item FAQ Summarization \textit{(Tóm tắt câu hỏi y tế)}: tóm tắt một câu hỏi / văn bản liên quan đến chủ đề y tế mà vẫn giữ nguyên ý nghĩa, độ khó và những thông tin quan trọng.
@@ -61,7 +61,7 @@ Nhóm tác giả xây dựng các bộ ngữ liệu \textit{arcDrAid} và \texti
 Nhóm tác giả tiến hành xây dựng bộ ngữ liệu arcDrAid dựa trên các chẩn đoán hình ảnh từ bệnh viện Vinmec, dựa trên thực tế là các bác sĩ chẩn đoán hình ảnh thường viết tắt các triệu chứng bệnh lí để tiết kiệm thời gian. Quá trình xây dựng bộ ngữ liệu được thực hiện theo các bước sau:
 \begin{enumerate}
 \item Sử dụng công cụ POS-tagger của nhóm Underthesea\footnote{\href{https://github.com/undertheseanlp}{https://github.com/undertheseanlp}}, nhóm tác giả trích xuất ra 75000 cụm danh từ, sau đó chọn ra 1000 cụm danh từ có tần suất xuất hiện cao nhất.
-\item Nhóm tác giả sử dụng các chữ cái đầu của mỗi âm vị ghép lại tạo thành từ viết tắt cho một cụm danh từ (e.g. \textit{cơ tim} thành \textit{ct}). Các từ viết tắt chỉ đại diện cho một cụm danh từ duy nhất bị loại bỏ.
+\item Nhóm tác giả sử dụng các chữ cái đầu của mỗi âm tiết ghép lại tạo thành từ viết tắt cho một cụm danh từ (e.g. \textit{cơ tim} thành \textit{ct}). Các từ viết tắt chỉ đại diện cho một cụm danh từ duy nhất bị loại bỏ.
 \item Các cụm từ được kiểm tra lại bởi chuyên gia để đảm bảo chúng thuộc chủ đề y tế.
 \end{enumerate}
 Bộ ngữ liệu được chia ngẫu nhiên thành các tập train/dev/test theo tỉ lệ 7/1/2. Các thông số của bộ ngữ liệu được trình bày trong bảng~\ref{tab:arcdraid-stats}
@@ -79,8 +79,32 @@ average acronym expansion length & 2.064 & 2.064 & 2.067 \\ \hline
 prob. overlap acronym over train set & 100\% & 100\% & 80.74\% \\ \hline
 prob. overlap expansion over train set & 100\% & 97.8\% & 77.06\% \\ \hline
 \end{tabular}
-\caption{Thông số của tập ngữ liệu arcDrAid\cite{minh-EtAl:2022:LREC}}
+\caption{Thông số của bộ ngữ liệu arcDrAid\cite{minh-EtAl:2022:LREC}}
 \label{tab:arcdraid-stats}
 \end{table}
 
 \subsubsection{FAQ Summarization}
+Bộ ngữ liệu FAQ Summarization được xây dựng từ các website hỏi đáp (Q\&A) về sức khỏe, theo đó nhóm tác giả sử dụng tiêu đề của câu hỏi làm câu tóm tắt cho nội dung câu hỏi. Bộ ngữ liệu được chia theo tỉ lệ train/dev/test là 8/1/1. Các thông số của tập ngữ liệu FAQ Summarization được thể hiện trong bảng~\ref{tab:faq-summarization-stats}
+
+\begin{table}
+\centering
+\begin{tabular}{|p{3.75cm}|c|c|c|}
+\hline
+\textbf{Properties} & \textbf{Train} & \textbf{Dev} & \textbf{Test} \\ \hline
+no. samples & 10621 & 1326 & 1330 \\ \hline
+avg. input length (word-level) & 93.3 & 90.28 & 94.01 \\ \hline
+avg. input length (sentence-level) & 5.39 & 5.22 & 5.4 \\ \hline
+avg. summary length (word-level) & 9.8 & 10.07 & 9.88 \\ \hline
+avg. summary length (sentence-level) & 1.02 & 1.02 & 1.04 \\ \hline
+prob. target token is included in input & 77.7\% & 78.17\% & 71.81\% \\ \hline
+\end{tabular}
+\caption{Thông số của bộ ngữ liệu FAQ Summarization\cite{minh-EtAl:2022:LREC}}
+\label{tab:faq-summarization-stats}
+\end{table}
+
+\subsubsection{Các bộ ngữ liệu khác}
+Nhóm tác giả sử dụng một số bộ ngữ liệu đã công bố cho task NER, bao gồm
+\begin{itemize}
+\item \textbf{PhoNER\_COVID-19\cite{truong-etal-2021-covid}}: bộ ngữ liệu gồm 10 loại thực thể, 10027 mẫu huấn luyện. Số mẫu của mỗi tập train/dev/test là 5027/200/3000.
+\item \textbf{Vietnamese Medical Question (ViMQ)\cite{vimq-2021}}: bộ ngữ liệu gồm 3 loại thực thể, được chia thành 3 tập train/dev/test với số lượng mẫu mỗi tập lần lượt là 7000/1000/1000.
+\end{itemize}

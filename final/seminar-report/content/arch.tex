@@ -14,7 +14,8 @@ Phần Encoder của Transformer được sử dụng trong mô hình BERT (\tex
 \end{itemize}
 \begin{figure}
 \centering
-\includegraphics[scale=.65]{img/BERT.jpg}
+\resizebox{\textwidth}{!}
+{\includegraphics{img/BERT.jpg}}
 \caption{Mô hình BERT\cite{devlin-etal-2019-bert}}
 \label{fig:my_label}
 \end{figure}
@@ -38,9 +39,12 @@ Mô hình ViHealthBERT sử dụng kiến trúc của BERT (12 encoder layer, 76
 \item \textbf{Giai đoạn pretraining}: Huấn luyện trên các bộ ngữ liệu \textit{Text Mining Corpus} và \textit{OSCAR} : Masked Language Modeling (MLM), Capitalized Prediction (CP) và Next Sentence Prediction (NSP).
 \item \textbf{Giai đoạn finetuning}: Finetuning trên các bộ ngữ liệu \textit{PhoNER\_COVID-19, VimQ, arcDrid} và \textit{FAQ Summarization}: Named-Entity Recognition (NER), Acronym Disambiguation và FAQ Summarization
 \end{itemize}
+
 \begin{figure}
 \begin{center}
-\includegraphics[scale=.75]{img/ViHealthBERT.png}
+\resizebox{\textwidth}{!}{
+\includegraphics{img/ViHealthBERT.png}
+}
 \caption{Tổng quan về quá trình pretraining và finetuning trong ViHealthBERT\cite{minh-EtAl:2022:LREC}}
 \end{center}
 \end{figure}
