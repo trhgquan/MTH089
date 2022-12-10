@@ -2,7 +2,7 @@
 \subsection{Pretraining}
 ViHealthBERT được pretrain với các task Masked Language Modeling (MLM) và Next Sentence Prediction (NSP) như PhoBERT. Nhóm tác giả đặt ra giả thuyết là những từ viết hoa thường mang ngữ nghĩa đặc biệt hơn các từ viết thường;  huấn luyện khả năng nhận biết từ viết hoa có thể giúp mô hình nhận biết các thực thể tốt hơn. Do vậy, nhóm tác giả tiến hành pretrain ViHealthBERT với task Capitalized Prediction (CP). 
 
-Nhóm tác giả cũng thử nghiệm 2 cách tokenize ngữ liệu, bao gồm syllable-level tokenize (tách từ ở mức \textit{tiếng}) và word-level tokenize (tách từ ở mức \textit{từ}). Với syllable-level tokenizer, nhóm tác giả xác định ranh giới từ bởi dấu cách; với word-level tokenizer, nhóm tác giả sử dụng công cụ RDRSegmenter\cite{NguyenNVDJ2018} để xác định ranh giới các từ.
+Nhóm tác giả cũng thử nghiệm 2 cách tokenize ngữ liệu, bao gồm syllable-level (tách từ ở mức \textit{tiếng}) và word-level (tách từ ở mức \textit{từ}). Với syllable-level tokenizer, nhóm tác giả xác định ranh giới từ bởi dấu cách; với word-level tokenizer, nhóm tác giả sử dụng công cụ RDRSegmenter\cite{NguyenNVDJ2018} để xác định ranh giới các từ.
 
 Mô hình được huấn luyện trên GPU A100-40GB, các thông số pretraining được thể hiện trong bảng~\ref{tab:pretraining-hyperparams}.
 
@@ -20,7 +20,7 @@ Batch size & 64 \\ \hline
 
 \subsection{Finetuning}
 \subsubsection{NER}
-Nhóm tác giả finetune mô hình ViHealthBERT cho tác vụ NER trên các bộ ngữ liệu khác nhau:
+Nhóm tác giả finetune mô hình ViHealthBERT cho task NER trên các bộ ngữ liệu khác nhau:
 \begin{itemize}
 \item \textbf{PhoNER\_COVID-19}: Finetune với learning rate 5e-5, batch size 32 và train trong 30 epochs. Early stopping được thiết lập sau 5 epochs, kết quả thu được là trung bình 5 lần chạy tốt nhất với initial seeds khác nhau.
 \item \textbf{Vietnamese Medical Question (ViMQ)}: Finetune với learning rate 5e-5, batch size 32 và train trong 10 epochs. Early stopping được thiết lập sau 3 epochs, kết quả thu được là trung bình 3 lần chạy tốt nhất với initial seeds khác nhau.
@@ -219,7 +219,6 @@ Dropout rate & 0.1 \\ \hline
 \caption{Thông số huấn luyện task Acronym Disambiguation của nhóm.}
 \label{tab:experiments-self-ad}
 \end{table}
-
 Kết quả huấn luyện đạt độ chính xác (Accuracy) là 0.8599 trên tập test của bộ ngữ liệu arcDrAid. Một ví dụ cho task Acronym Disambiguation với mô hình nhóm đã finetune được thể hiện trong hình~\ref{fig:demo-wsd-output}. Chi tiết ở notebook \texttt{ViHealthBERT\_WSD.ipynb} (huấn luyện) và \texttt{demo\_predict\_wsd.ipynb} (demo).
 
 \begin{figure}
