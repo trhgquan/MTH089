@@ -10,13 +10,14 @@ bash download.sh
 
 | Model                                       | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
 | ------------------------------------------- | ------------ | -------------------- | ----------------- | ------------------- |
-| Conditional Random Field (CRF)              | 0.956434     | **0.956282**         | **0.956434**      | **0.956170**        |
+| Conditional Random Field (CRF)              | 0.956434     | 0.956282             | 0.956434          | 0.956170            |
 | Recurrent Neural Network (RNN)              | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
 | Gated Recurrent Units (GRU)                 | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
 | Bidirectional Gated Recurrent Units (BiGRU) | 0.917024     | 0.912772             | 0.917024          | 0.913364            |
-| Finetuned DistilBERT                        | **0.975054** | 0.889020             | 0.892713          | 0.890863            |
-| Finetuned DistilRoBERTa                     | 0.970929     | 0.888856             | 0.901074          | 0.894923            |
-| Finetuned AlBERT                            | 0.968607     | 0.862483             | 0.870695          | 0.866569            |
+| Finetuned DistilBERT                        | 0.975054     | 0.889020             | 0.892713          | 0.890863            |
+| Finetuned DistilRoBERTa                     | 0.970184     | 0.969406             | 0.970184          | 0.969575            |
+| Finetuned AlBERT                            | **0.974414** | **0.974137**         | ** 0.974414**     | **0.974211**        |
+| Finetuned XLNet                             | 0.974403     | 0.973616             | 0.974403          | 0.973741            |
 
 ### Conditional Random Field (CRF)
 I use Conditional Random Field with several rules, mostly defining a noun and personal / object names. CRF's parameters:
@@ -60,3 +61,6 @@ Using the same configurations as the DistilBERT finetuning.
 
 ## Finetuning AlBERT
 Using the same configurations as the DistilBERT finetuning.
+
+## Finetuning XLNet
+UUing the same configurations as the DistilBERT finetuning.
