@@ -47,6 +47,8 @@ A modified version of above architecture:
 - `learning_rate = .001`.
 
 ### Finetuning DistilBERT
+[Original DistilBERT paper](https://arxiv.org/abs/1910.01108)
+
 For the pretraining weights, I used [DistilBERT-base-uncased from huggingface](https://huggingface.co/distilbert-base-uncased). For the dataset, I use the [ConLL2003 dataset from huggingface](https://huggingface.co/datasets/conll2003) (which is still the same version of ConLL2003 NER dataset, but built as Torch Dataset). Configurations as below:
 - `learning_rate =  2e-5`
 - `batch_size = 16`
