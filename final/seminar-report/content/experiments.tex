@@ -20,12 +20,11 @@ Batch size & 64 \\ \hline
 
 \subsection{Finetuning}
 \subsubsection{NER}
-Nhóm tác giả finetune mô hình ViHealthBERT cho task NER trên các bộ ngữ liệu khác nhau:
+Nhóm tác giả finetune mô hình ViHealthBERT cho task NER trên server GPU A100-40GB với các bộ ngữ liệu khác nhau:
 \begin{itemize}
 \item \textbf{PhoNER\_COVID-19}: Finetune với learning rate 5e-5, batch size 32 và train trong 30 epochs. Early stopping được thiết lập sau 5 epochs, kết quả thu được là trung bình 5 lần chạy tốt nhất với initial seeds khác nhau.
 \item \textbf{Vietnamese Medical Question (ViMQ)}: Finetune với learning rate 5e-5, batch size 32 và train trong 10 epochs. Early stopping được thiết lập sau 3 epochs, kết quả thu được là trung bình 3 lần chạy tốt nhất với initial seeds khác nhau.
 \end{itemize}
-Nhóm tác giả finetune task NER trên server GPU A100-40GB.
 
 \subsubsection{Acronym Disambiguation}
 Với task Acronym Disambiguation, nhóm tác giả finetune mô hình với learning rate 1e-5, batch size 32 và train trong 10 epochs. Nhóm tác giả finetune task Acronym Disambiguation trên server GPU A100-40GB, kết quả thu được là trung bình 3 lần chạy với inital seeds khác nhau.
@@ -71,7 +70,7 @@ P_{lcs} &= \frac{LCS(X, Y)}{n} \\
 F_{lcs} &= \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2P_{lcs}}
 \end{aligned}
 \end{equation}
-$LCS(X, Y)$ trong công thức được định nghĩa là dãy con chung dài nhất của $X$ và $Y$, $\displaystyle \beta = \frac{P_{lcs}}{R_{lcs}}$. Khi đó, độ đo ROUGE-$L$ giữa 2 văn bản $X$ và $Y$ bằng $F_{lcs}$ trong công thức bên trên.
+$LCS(X, Y)$ trong công thức được định nghĩa là dãy con chung dài nhất của $X$ và $Y$, $\displaystyle \beta = \frac{P_{lcs}}{R_{lcs}}$. Khi đó, độ đo ROUGE-$L$ giữa 2 văn bản $X$ và $Y$ là $F_{lcs}$ trong công thức bên trên.
 
 \subsubsection{NER}
 Nhóm tác giả sử dụng độ đo Micro F1 và Macro F1 cho task NER. Kết quả thực nghiệm của nhóm tác giả được thể hiện trong bảng~\ref{tab:experiments-ner}. Nhìn chung, mô hình ViHealthBERT cho ra kết quả tốt hơn PhoBERT với tất cả các thông số huấn luyện khác nhau. Cụ thể:

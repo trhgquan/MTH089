@@ -16,13 +16,18 @@
 \usepackage{mathptmx}
 % \graphicspath{PATH_TO_GRAPHIC_FOLDER}
 
-\pagestyle{fancy}
-\fancyfoot{}
-\fancyfoot[R]{Page \thepage}
+% No indentation on new paragraph
+\setlength{\parindent}{0pt}
 
+% Declaring variables
 \newcommand{\reporttitle}{Báo cáo Seminar}
 \newcommand{\coursename}{Khai thác ngữ liệu văn bản nâng cao (MTH089)}
 \newcommand{\reportname}{ViHealthBERT: Pre-trained Language Models for Vietnamese \\ in Health Text Mining}
+
+% Fancy footer & header
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyfoot[R]{Page \thepage}
 
 \lhead{
 \reporttitle

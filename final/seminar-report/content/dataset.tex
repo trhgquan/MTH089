@@ -23,10 +23,10 @@ OSCAR's selected corpus (TF) & 25M  & Health, Medical, General \\ \hline
 \item \textbf{Các tạp chí khoa học}: nhóm tác giả trích xuất phần tóm tắt (abstract) của các tạp chí Vietnamese Medical Journal, Journal of Health and Development Studies, Journal of Medicine and Pharmacy, Medical Journal of Ho Chi Minh City.
 \item \textbf{Sách chuyên khảo}: nhóm tác giả dùng bản pdf sách chuyên khảo y sinh từ website \texttt{yhoctonghop.vn}, sau đó chuyển bản pdf sang phiên bản text.
 \end{itemize}
-Phần ngữ liệu thô được tiền xử lý (preprocess) với các bước khử nhiễu; loại bỏ email, số điện thoại, URL; loại bỏ các câu trùng lặp sử dụng thuật toán edit-distance.
+Phần ngữ liệu thô được tiền xử lý (preprocess) với các bước khử nhiễu; loại bỏ địa chỉ email, số điện thoại, URL trong văn bản; loại bỏ các câu trùng lặp bằng khoảng cách Levenshtein.
 
 \subsubsection{OSCAR's selected corpus}
-Để xây dựng Bộ ngữ liệu OSCAR\cite{ortiz-suarez-etal-2020-monolingual} nhóm tác giả đã dùng các phương pháp \textbf{Term Frequency (TF)} và \textbf{Selector} vì bộ ngữ liệu OSCAR là bộ ngữ liệu cho general-domain mà ta chỉ cần trích xuất các văn bản liên quan đến chủ đề y tế cho quá trình pretraining.
+Để xây dựng Bộ ngữ liệu OSCAR\cite{ortiz-suarez-etal-2020-monolingual}, nhóm tác giả đã dùng các phương pháp \textbf{Term Frequency (TF)} và \textbf{Selector} vì bộ ngữ liệu OSCAR là bộ ngữ liệu cho general-domain, trong khi ta chỉ cần trích xuất các văn bản liên quan đến chủ đề y tế.
 
 \paragraph{Term Frequency (TF)}
 Phương pháp Term Frequency dựa vào tần suất xuất hiện của các từ liên quan đến chủ đề y tế để xác định xem một văn bản có thuộc chủ đề y tế hay không. Các bước thực hiện bao gồm:
