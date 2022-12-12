@@ -19,7 +19,7 @@ Một số điểm mạnh của Transformer so với các mô hình dịch máy 
 \end{itemize}
 
 \subsection{BERT}
-Phần Encoder của Transformer được sử dụng trong mô hình BERT (\textbf{B}idirectional \textbf{E}ncoder \textbf{R}epresentations from \textbf{T}ransformers)\cite{devlin-etal-2019-bert}. Trong bài báo, BERT được giới thiệu có 2 phiên bản với các hyperparameters (siêu tham số) và số lượng training parameters (tham số huấn luyện) khác nhau:
+Phần Encoder của Transformer được sử dụng trong mô hình BERT (\textbf{B}idirectional \textbf{E}ncoder \textbf{R}epresentations from \textbf{T}ransformers)\cite{devlin-etal-2019-bert}. BERT được giới thiệu có 2 phiên bản với các hyperparameters (siêu tham số) và số lượng training parameters (tham số huấn luyện) khác nhau:
 
 \begin{figure}
 \centering
@@ -34,9 +34,11 @@ Phần Encoder của Transformer được sử dụng trong mô hình BERT (\tex
 \end{itemize}
 BERT được tiền huấn luyện (pretrain) với bộ ngữ liệu \textit{BookCorpus} (800 triệu từ) và \textit{Wikipedia English} (2500 triệu từ) với các pretraining task Masked Language Modeling (MLM) và Next Sentence Prediction (NSP):
 \begin{itemize}
-\item Đầu vào của mô hình BERT là 2 câu A và B. Input embedding được tạo bằng cách thêm token \texttt{[CLS]}, A, \texttt{[SEP]} và B. Token \texttt{[CLS]} đánh dấu vị trí bắt đầu của câu, token \texttt{[SEP]} đánh dấu vị trí kết thúc câu A và bắt đầu câu B. Input embedding sau đó được đưa qua segment embedding để đánh dấu token thuộc câu A hay B, cuối cùng đưa qua positional embedding để đánh dấu vị trí của token trong câu.
-\item Vector embedding được đưa qua $N$ block Transformer Encoder. BERT sẽ chọn ngẫu nhiên 15\% số lượng token trong input để mask với các chiến lược: 80\% mask token bằng một token đặc biệt, 10\% thay ngẫu nhiên token với một token khác và 10\% giữ nguyên token được chọn.
-\item Token đầu tiên của output có thể được dùng cho task NSP, các token sau dùng cho task MLM.
+\item Đầu vào của mô hình BERT là 2 câu $A$ và $B$. Input embedding được tạo bằng cách thêm token \texttt{[CLS]} và \texttt{[SEP]} sao cho token \texttt{[CLS]} đánh dấu vị trí bắt đầu của câu $A$, token \texttt{[SEP]} đánh dấu vị trí kết thúc câu $A$ và bắt đầu câu $B$. Input embedding sau đó được đưa qua segment embedding để đánh dấu token thuộc câu $A$ hay $B$, cuối cùng đưa qua positional embedding để đánh dấu vị trí của token trong câu.
+
+\item \textbf{MLM}: Vector embedding được đưa qua $N$ block Transformer Encoder. BERT sẽ chọn ngẫu nhiên 15\% số lượng token trong input để mask với các chiến lược: 80\% mask token bằng một token đặc biệt, 10\% thay ngẫu nhiên token với một token khác và 10\% giữ nguyên token được chọn. Theo cách này BERT sẽ học được cách dự đoán cho từng token ở các vị trí khác nhau.
+
+\item \textbf{NSP}: Ngữ liệu huấn luyện sẽ đảm bảo 50\% câu $B$ là câu tiếp theo của câu $A$, 50\% còn lại câu $B$ chỉ là một câu ngẫu nhiên được lựa chọn từ bộ ngữ liệu huấn luyện. Vector output $C$ (tương ứng với vị trí token \texttt{[CLS]} trong input) sẽ mang đủ thông tin giúp chúng ta xác định $B$ có phải là câu tiếp theo của $A$ trong một văn cảnh nào đó hay không.
 \end{itemize}
 
 Mô hình BERT sau khi huấn luyện sẽ được tinh chỉnh (finetune) lại cho các downstream task khác nhau. Sau khi BERT được công bố, nhiều mô hình cải tiến của BERT cũng được giới thiệu dựa trên kiến trúc của BERT, trong đó có thể kể đến
@@ -53,7 +55,7 @@ Dựa trên mô hình BERT, nhóm nghiên cứu từ VinAI đã công bố PhoBE
 \item \textbf{PhoBERT\textsubscript{base}}: 12 encoder layers, 768 hidden units, 12 attention heads, 135 triệu parameters.
 \item \textbf{PhoBERT\textsubscript{large}}: 24 encoder layers, 1024 hidden units, 16 attention heads và 370 triệu parameters.
 \end{itemize}
-PhoBERT được pretrain với bộ ngữ liệu \textit{Wikipedia Tiếng Việt} và bộ ngữ liệu tin tức tiếng Việt \textit{Binhvq News Corpus}.
+PhoBERT được pretrain với bộ ngữ liệu \textit{Wikipedia Tiếng Việt} và bộ ngữ liệu tin tức tiếng Việt \textit{Binhvq News Corpus}\footnote{\href{https://github.com/binhvq/news-corpus}{https://github.com/binhvq/news-corpus}}.
 
 \subsection{ViHealthBERT}
 Mô hình ViHealthBERT sử dụng kiến trúc của BERT (12 encoder layer, 768 hidden units, 12 attention heads) với bộ trọng số huấn luyện của PhoBERT. Việc huấn luyện ViHealthBERT chia làm 2 giai đoạn:
