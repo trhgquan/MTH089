@@ -1,7 +1,7 @@
 # ConLL - NER
 
-## How-to
-Download data (Train and Test):
+## Dataset
+The `conll2003` dataset can be download via [Huggingface](https://huggingface.co/datasets/conll2003) or using bash file:
 ```
 bash download.sh
 ```

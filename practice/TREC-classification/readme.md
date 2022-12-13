@@ -1,14 +1,12 @@
 # TREC classification
 
-## How-to
-For `ml-models` scripts:
-
-1. Download data (Train and Test):
+## Dataset
+The `trec` dataset can be download via [Huggingface](https://huggingface.co/datasets/trec) or using bash file:
 ```
 bash download.sh
 ```
 
-2. Run `dataprep.py`
+You might want to run `dataprep.py` before using any stats model.
 
 ## Results
 
@@ -60,10 +58,10 @@ I trained with these hyperparameters:
 ### CNN
 Follow [the article of chriskhanhtran](https://chriskhanhtran.github.io/posts/cnn-sentence-classification/), I created a CNN for text classification (mostly use chriskhanhtran's architecture and feeding data to it only). There are 3 versions available:
 - Random embedding: using randomized (trainable) embedding vectors.
-- Static embedding: using [FacebookAI's fastText](https://fasttext.cc/) for embedding, weights are freezed.
+- Static embedding: using [FacebookAI's fastText](https://fasttext.cc/) for embedding, weights were frozen.
 - Non-static embedding: still using fastText, but weights are trainable.
 
-Configurations were keep as the original.
+Configurations were kept as the original.
 
 ### Bidirectional Gated Gradient Units
 I built a simple GRU network:
