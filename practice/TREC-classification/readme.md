@@ -1,6 +1,8 @@
 # TREC classification
 
 ## How-to
+For `ml-models` scripts:
+
 1. Download data (Train and Test):
 ```
 bash download.sh
@@ -18,6 +20,7 @@ bash download.sh
 | Multilayer Perceptron (MLP)                | 0.828000     | 0.863599          | 0.788308       | 0.813223         |
 | Bidirectional Gradient Gated Units (BiGRU) | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
 | Finetuned DistilBERT                       | **0.974000** | **0.976173**      | **0.977431**   | **0.976423**     |
+| Finetuned XLM-RoBERTa                      | 0.966000     | 0.971092          | 0.969782       | 0.970092         |
 
 ### Logistic Regression
 I used `sklearn.linear_model.LogisticRegression` with `penalty="l2"`. The pipeline include
@@ -64,8 +67,20 @@ I built a simple GRU network:
 - Early stopping with `20 epochs patience`
 
 ### Finetuned DistilBERT
-I finetuned DistilBERT with
+I used [DistilBERT-base-uncased weights from huggingface](https://huggingface.co/distilbert-base-uncased), finetuning hyperparameters include
 - `epochs = 5`
 - `batch_size = 16`
 - `weight_decay = .01`
 - `learning_rate = 2e-5`
+
+Training dataset is [TREC on Huggingface](https://huggingface.co/datasets/trec) (which is the same but operating as a Torch dataset). I split the original TREC training set to a training and validation set with a ratio of 8:2.
+
+### Finetuned XLM-RoBERTa
+I used [XLM-RoBERTa weights from huggingface](https://huggingface.co/xlm-roberta-base), finetuning hyperparameters include
+- `epochs = 10`
+- `batch_size = 16`
+- `weight_decay = .01`
+- `learning_rate = 2e-5`
+- `early_stopping_patience = 3 (steps)`
+
+Training data splitted like [Finetuned DistilBERT](#finetuned-distilbert)
