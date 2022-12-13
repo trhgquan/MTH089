@@ -12,15 +12,18 @@ bash download.sh
 
 ## Results
 
-| Model                                      | Accuracy     | Precision (macro) | Recall (macro) | F1 score (macro) |
-| ------------------------------------------ | ------------ | ----------------- | -------------- | ---------------- |
-| Logistic Regression                        | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
-| Multinomial Naive Bayes                    | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
-| Support Vector Classifier                  | 0.886000     | 0.862294          | 0.912049       | 0.882370         |
-| Multilayer Perceptron (MLP)                | 0.828000     | 0.863599          | 0.788308       | 0.813223         |
-| Bidirectional Gradient Gated Units (BiGRU) | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
-| Finetuned DistilBERT                       | **0.974000** | **0.976173**      | **0.977431**   | **0.976423**     |
-| Finetuned XLM-RoBERTa                      | 0.966000     | 0.971092          | 0.969782       | 0.970092         |
+| Model                                                                             | Accuracy     | Precision (macro) | Recall (macro) | F1 score (macro) |
+| --------------------------------------------------------------------------------- | ------------ | ----------------- | -------------- | ---------------- |
+| [Logistic Regression](#logistic-regression)                                       | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
+| [Multinomial Naive Bayes](#multinomial-naive-bayes)                               | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
+| [Support Vector Classifier](#support-vector-machine)                              | 0.886000     | 0.862294          | 0.912049       | 0.882370         |
+| [Multilayer Perceptron (MLP)](#multilayer-perceptron-mlp)                         | 0.828000     | 0.863599          | 0.788308       | 0.813223         |
+| [CNN with random embedding (trainable)](#cnn)                                     | 0.726000     | 0.808797          | 0.684322       | 0.717606         |
+| [CNN with fastText (freezed)](#cnn)                                               | 0.924000     | 0.932542          | 0.898361       | 0.911952         |
+| [CNN with fastText (trainable)](#cnn)                                             | 0.910000     | 0.922051          | 0.885470       | 0.899350         |
+| [Bidirectional Gradient Gated Units (BiGRU)](#bidirectional-gated-gradient-units) | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
+| [Finetuned DistilBERT](#finetuned-distilbert)                                     | **0.974000** | **0.976173**      | **0.977431**   | **0.976423**     |
+| [Finetuned XLM-RoBERTa](#finetuned-xlm-roberta)                                   | 0.966000     | 0.971092          | 0.969782       | 0.970092         |
 
 ### Logistic Regression
 I used `sklearn.linear_model.LogisticRegression` with `penalty="l2"`. The pipeline include
@@ -53,6 +56,14 @@ I trained with these hyperparameters:
 - `epochs = 100`
 - `batch_size = 64`
 - Early stopping with `10 epochs patience`
+
+### CNN
+Follow [the article of chriskhanhtran](https://chriskhanhtran.github.io/posts/cnn-sentence-classification/), I created a CNN for text classification (mostly use chriskhanhtran's architecture and feeding data to it only). There are 3 versions available:
+- Random embedding: using randomized (trainable) embedding vectors.
+- Static embedding: using [FacebookAI's fastText](https://fasttext.cc/) for embedding, weights are freezed.
+- Non-static embedding: still using fastText, but weights are trainable.
+
+Configurations were keep as the original.
 
 ### Bidirectional Gated Gradient Units
 I built a simple GRU network:
