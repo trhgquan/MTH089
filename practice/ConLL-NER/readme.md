@@ -8,16 +8,16 @@ bash download.sh
 
 ## Results
 
-| Model                                       | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
-| ------------------------------------------- | ------------ | -------------------- | ----------------- | ------------------- |
-| Conditional Random Field (CRF)              | 0.956434     | 0.956282             | 0.956434          | 0.956170            |
-| Recurrent Neural Network (RNN)              | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
-| Gated Recurrent Units (GRU)                 | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
-| Bidirectional Gated Recurrent Units (BiGRU) | 0.917024     | 0.912772             | 0.917024          | 0.913364            |
-| Finetuned DistilBERT                        | 0.973586     | 0.974048             | 0.973586          | 0.973668            |
-| Finetuned DistilRoBERTa                     | 0.970184     | 0.969406             | 0.970184          | 0.969575            |
-| Finetuned ALBERT                            | **0.974414** | **0.974137**         | **0.974414**      | **0.974211**        |
-| Finetuned XLNet                             | 0.974403     | 0.973616             | 0.974403          | 0.973741            |
+| Model                                                                                    | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
+| ---------------------------------------------------------------------------------------- | ------------ | -------------------- | ----------------- | ------------------- |
+| [Conditional Random Field (CRF)             ](#conditional-random-field-crf)             | 0.956434     | 0.956282             | 0.956434          | 0.956170            |
+| [Recurrent Neural Network (RNN)             ](#recurrent-neural-network-rnn)             | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
+| [Gated Recurrent Units (GRU)                ](#gated-recurrent-units-gru)                 | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
+| [Bidirectional Gated Recurrent Units (BiGRU)](#bidirectional-gated-recurrent-units-bigru) | 0.917024     | 0.912772             | 0.917024          | 0.913364            |
+| [Finetuned DistilBERT                       ](#finetuning-distilbert)                     | 0.973586     | 0.974048             | 0.973586          | 0.973668            |
+| [Finetuned DistilRoBERTa                    ](#finetuning-distilroberta)                  | 0.970184     | 0.969406             | 0.970184          | 0.969575            |
+| [Finetuned ALBERT                           ](#finetuning-albert)                         | **0.974414** | **0.974137**         | **0.974414**      | **0.974211**        |
+| [Finetuned XLNet                            ](#finetuning-xlnet)                          | 0.974403     | 0.973616             | 0.974403          | 0.973741            |
 
 ### Conditional Random Field (CRF)
 I use Conditional Random Field with several rules, mostly defining a noun and personal / object names. CRF's parameters:
