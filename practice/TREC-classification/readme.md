@@ -12,29 +12,6 @@ bash download.sh
 
 You might want to run `dataprep.py` before using any stats model.
 
-## Results
-
-| Model                                                                                 | Accuracy     | Precision (macro) | Recall (macro) | F1 score (macro) |
-| ------------------------------------------------------------------------------------- | ------------ | ----------------- | -------------- | ---------------- |
-| [Logistic Regression](#logistic-regression)                                           | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
-| [Multinomial Naive Bayes](#multinomial-naive-bayes)                                   | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
-| [Support Vector Classifier](#support-vector-machine)                                  | 0.886000     | 0.862294          | 0.912049       | 0.882370         |
-| [Multilayer Perceptron (MLP)](#multilayer-perceptron-mlp)                             | 0.828000     | 0.863599          | 0.788308       | 0.813223         |
-| [Bidirectional Gradient Gated Units (BiGRU)](#bidirectional-gated-gradient-units)     | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
-| [CNN with random embedding (trainable)](#cnn-for-text-classification)                 | 0.726000     | 0.808797          | 0.684322       | 0.717606         |
-| [CNN with fastText (freezed)](#cnn-for-text-classification)                           | 0.924000     | 0.932542          | 0.898361       | 0.911952         |
-| [CNN with fastText (trainable)](#cnn-for-text-classification)                         | 0.910000     | 0.922051          | 0.885470       | 0.899350         |
-| [Multi-channel CNN with LSTM](#multi-channel-cnn-with-lstm)                           | 0.652000     | 0.717115          | 0.636954       | 0.630829         |
-| [Multi-channel CNN with BIGRU and random embedding](#multi-channel-cnn-with-lstm)     | 0.676000     | 0.716941          | 0.700641       | 0.689064         |
-| [Multi-channel CNN with BiGRU and fastText (freezed)](#multi-channel-cnn-with-lstm)   | 0.914000     | 0.919263          | 0.895741       | 0.903690         |
-| [Multi-channel CNN with BiGRU and fastText (trainable)](#multi-channel-cnn-with-lstm) | 0.902000     | 0.891531          | 0.884072       | 0.885555         |
-| [Finetuned DistilBERT](#finetuned-distilbert)                                         | **0.974000** | **0.976173**      | **0.977431**   | **0.976423**     |
-| [Finetuned XLM-RoBERTa](#finetuned-xlm-roberta)                                       | 0.966000     | 0.971092          | 0.969782       | 0.970092         |
-
-### Discussions
-- Transformer-based models achieve best results (by the power of self-attention, a large corpus used during the pretraining, ..etc.). 
-- Using pre-trained word embedding will boost metrics dramatically. Most CNN implementations were *shit* until plugging a pre-trained word embedding in, which results in approximately +10% accuracy at most. 
-- Switching from unidirectional seq2seq to bidirectional seq2seq **does** create a minor effect on the result. 
 
 ## Experiments
 ### Logistic Regression
@@ -141,3 +118,27 @@ I used [XLM-RoBERTa weights from huggingface](https://huggingface.co/xlm-roberta
 Training data splitted like [Finetuned DistilBERT](#finetuned-distilbert)
 
 Implementation can be found [here](code/deep-learning/XLM-RoBERTa-based-classification.ipynb)
+
+## Results
+
+| Model                                                                                 | Accuracy     | Precision (macro) | Recall (macro) | F1 score (macro) |
+| ------------------------------------------------------------------------------------- | ------------ | ----------------- | -------------- | ---------------- |
+| [Logistic Regression](#logistic-regression)                                           | 0.852000     | 0.830745          | 0.897112       | 0.856029         |
+| [Multinomial Naive Bayes](#multinomial-naive-bayes)                                   | 0.832000     | 0.703944          | 0.699418       | 0.696869         |
+| [Support Vector Classifier](#support-vector-machine)                                  | 0.886000     | 0.862294          | 0.912049       | 0.882370         |
+| [Multilayer Perceptron (MLP)](#multilayer-perceptron-mlp)                             | 0.828000     | 0.863599          | 0.788308       | 0.813223         |
+| [Bidirectional Gradient Gated Units (BiGRU)](#bidirectional-gated-gradient-units)     | 0.836000     | 0.694588          | 0.708307       | 0.700427         |
+| [CNN with random embedding (trainable)](#cnn-for-text-classification)                 | 0.726000     | 0.808797          | 0.684322       | 0.717606         |
+| [CNN with fastText (freezed)](#cnn-for-text-classification)                           | 0.924000     | 0.932542          | 0.898361       | 0.911952         |
+| [CNN with fastText (trainable)](#cnn-for-text-classification)                         | 0.910000     | 0.922051          | 0.885470       | 0.899350         |
+| [Multi-channel CNN with LSTM](#multi-channel-cnn-with-lstm)                           | 0.652000     | 0.717115          | 0.636954       | 0.630829         |
+| [Multi-channel CNN with BIGRU and random embedding](#multi-channel-cnn-with-lstm)     | 0.676000     | 0.716941          | 0.700641       | 0.689064         |
+| [Multi-channel CNN with BiGRU and fastText (freezed)](#multi-channel-cnn-with-lstm)   | 0.914000     | 0.919263          | 0.895741       | 0.903690         |
+| [Multi-channel CNN with BiGRU and fastText (trainable)](#multi-channel-cnn-with-lstm) | 0.902000     | 0.891531          | 0.884072       | 0.885555         |
+| [Finetuned DistilBERT](#finetuned-distilbert)                                         | **0.974000** | **0.976173**      | **0.977431**   | **0.976423**     |
+| [Finetuned XLM-RoBERTa](#finetuned-xlm-roberta)                                       | 0.966000     | 0.971092          | 0.969782       | 0.970092         |
+
+### Discussions
+- Transformer-based models achieve best results (by the power of self-attention, a large corpus used during the pretraining, ..etc.). 
+- Using pre-trained word embedding will boost metrics dramatically. Most CNN implementations were *shit* until plugging a pre-trained word embedding in, which results in approximately +10% accuracy at most. 
+- Switching from unidirectional seq2seq to bidirectional seq2seq **does** create a minor effect on the result. 
