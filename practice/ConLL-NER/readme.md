@@ -11,17 +11,18 @@ bash download.sh
 
 ## Results
 
-| Model                                                                                                             | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
-| ----------------------------------------------------------------------------------------------------------------- | ------------ | -------------------- | ----------------- | ------------------- |
-| [Conditional Random Field (CRF)             ](#conditional-random-field-crf)                                      | 0.956434     | 0.956282             | 0.956434          | 0.956170            |
-| [Recurrent Neural Network (RNN)             ](#recurrent-neural-network-rnn)                                      | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
-| [Gated Recurrent Units (GRU)                ](#gated-recurrent-units-gru)                                         | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
-| [Bidirectional Gated Recurrent Units (BiGRU)](#bidirectional-gated-recurrent-units-bigru)                         | 0.917024     | 0.912772             | 0.917024          | 0.913364            |
-| [Bidirectional Gated Recurrent Units (BiGRU) with fastText (freezed)](#bidirectional-gated-recurrent-units-bigru) | 0.940627     | 0.944152             | 0.940627          | 0.941875            |
-| [Finetuned DistilBERT                       ](#finetuning-distilbert)                                             | 0.973586     | 0.974048             | 0.973586          | 0.973668            |
-| [Finetuned DistilRoBERTa                    ](#finetuning-distilroberta)                                          | 0.970184     | 0.969406             | 0.970184          | 0.969575            |
-| [Finetuned ALBERT                           ](#finetuning-albert)                                                 | **0.974414** | **0.974137**         | **0.974414**      | **0.974211**        |
-| [Finetuned XLNet                            ](#finetuning-xlnet)                                                  | 0.974403     | 0.973616             | 0.974403          | 0.973741            |
+| Model                                                                                                               | Accuracy     | Precision (weighted) | Recall (weighted) | F1 score (weighted) |
+| ------------------------------------------------------------------------------------------------------------------- | ------------ | -------------------- | ----------------- | ------------------- |
+| [Conditional Random Field (CRF)             ](#conditional-random-field-crf)                                        | 0.956434     | 0.956282             | 0.956434          | 0.956170            |
+| [Recurrent Neural Network (RNN)             ](#recurrent-neural-network-rnn)                                        | 0.858490     | 0.909933             | 0.858490          | 0.877241            |
+| [Gated Recurrent Units (GRU)                ](#gated-recurrent-units-gru)                                           | 0.889458     | 0.880343             | 0.889458          | 0.881657            |
+| [Bidirectional Gated Recurrent Units (BiGRU)](#bidirectional-gated-recurrent-units-bigru)                           | 0.916701     | 0.908986             | 0.916701          | 0.910621            |
+| [Bidirectional Gated Recurrent Units (BiGRU) with fastText (freezed)](#bidirectional-gated-recurrent-units-bigru)   | 0.942026     | 0.941632             | 0.942026          | 0.941655            |
+| [Bidirectional Gated Recurrent Units (BiGRU) with fastText (trainable)](#bidirectional-gated-recurrent-units-bigru) | 0.936449     | 0.938275             | 0.936449          | 0.936099            |
+| [Finetuned DistilBERT                       ](#finetuning-distilbert)                                               | 0.973586     | 0.974048             | 0.973586          | 0.973668            |
+| [Finetuned DistilRoBERTa                    ](#finetuning-distilroberta)                                            | 0.970184     | 0.969406             | 0.970184          | 0.969575            |
+| [Finetuned ALBERT                           ](#finetuning-albert)                                                   | **0.974414** | **0.974137**         | **0.974414**      | **0.974211**        |
+| [Finetuned XLNet                            ](#finetuning-xlnet)                                                    | 0.974403     | 0.973616             | 0.974403          | 0.973741            |
 
 ### Discussion
 - Transformer-based models are the most powerful architecture in this problem (Machine Translation, which is Transformer-based models' original mainstream task). ALBERT won the best metrics, compared to a **distilled** version of BERT and RoBERTa with some explanations including the model size and the model's pretraining tasks. 
