@@ -1,0 +1,18 @@
+{
+  "Thưa": "O", 
+  "bác_sĩ": "O", 
+  ",": "O", 
+  "bệnh_nhân": "O", 
+  "911": "B-PATIENT_ID", 
+  "nam": "B-GENDER", 
+  "27": "B-AGE", 
+  "tuổi": "O", 
+  "quốc_tịch": "O", 
+  "Việt_Nam": "O", 
+  "ho": "B-SYMPTOM_AND_DISEASE", 
+  "đờm": "I-SYMPTOM_AND_DISEASE",   
+  "chóng_mặt": "B-SYMPTOM_AND_DISEASE", 
+  "buồn_nôn": "B-SYMPTOM_AND_DISEASE", 
+  "bị": "O", 
+  "tiêu_chảy": "B-SYMPTOM_AND_DISEASE"
+}

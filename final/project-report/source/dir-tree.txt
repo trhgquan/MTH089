@@ -1,0 +1,23 @@
+DemoViHealthBERT-NER
+|   .gitignore
+|   main.py
+|   data_loader.py
+|   readme.md
+|   requirements.txt
+|   vncorenlp.sh
++---model
+|       module.py
+|       vihnbert.py
++---model-save
+|       config.json
+|       pytorch_model.bin
+|       training_args.bin
++---web-demo-ner
+|
+\---vncorenlp
+    |   VnCoreNLP-1.1.1.jar
+    |
+    \---models
+        \---wordsegmenter
+                vi-vocab
+                wordsegmenter.rdr

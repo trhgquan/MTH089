@@ -96,12 +96,6 @@ AGE                   & 0.9803             & 0.9681          & 0.9741           
 
 \subsection{Xây dựng ứng dụng}
 Ứng dụng cần nhận biết và trích xuất các triệu chứng bệnh từ đầu vào là văn bản của người dùng. Do vậy, nhóm sẽ trích xuất các từ được gán nhãn \textit{SYMPTOM\_AND\_DISEASE} trong văn bản. Một ví dụ cho input (câu văn miêu tả triệu chứng) và output (danh sách các nhãn của câu) có thể thấy trong hình~\ref{fig:example-result}.
-\begin{figure}
-\centering
-\includegraphics[scale=.5]{img/example-result.png}
-\caption{Một ví dụ cho input (câu văn miêu tả triệu chứng) và output (danh sách các nhãn của câu)}
-\label{fig:example-result}
-\end{figure}
 
 Từ mô hình đã huấn luyện, nhóm tiến hành xây dựng ứng dụng web cho phép người dùng nhập vào một câu văn (đoạn văn). Dữ liệu được đưa vào mô hình ViHealthBERT đã được finetune để gán nhãn, sau đó bộ nhãn và câu đầu vào sẽ được đưa vào một thuật toán đơn giản để trích ra danh sách các triệu chứng. Workflow của ứng dụng có thể được tóm tắt qua hình~\ref{fig:workflow}.
 \begin{figure}
@@ -116,110 +110,26 @@ Cài đặt cụ thể của ứng dụng sẽ được nêu chi tiết ở các
 Từ hướng dẫn của nhóm tác giả bài báo ViHealthBERT, nhóm dùng công cụ VnCoreNLP để thực hiện tác vụ phân định ranh giới từ (word segmentation).
 
 \lstset{style=mystyle}
-\begin{lstlisting}[language=Python]
-target_VnCoreNLP_path = os.path.join(os.path.dirname(__file__), 'vncorenlp/VnCoreNLP-1.1.1.jar')
-rdrsegmenter = VnCoreNLP(target_VnCoreNLP_path,
-                         annotators="wseg",
-                         max_heap_size='-Xmx500m')
-sentences = rdrsegmenter.tokenize(text)
-input_text = ""
-for sentence in sentences:
-    input_text = " ".join(sentence)
-\end{lstlisting}
+\lstinputlisting[language=Python]{source/segmentation.py}
 Ví dụ:
 \begin{itemize}
-    \item \textbf{Input}: Thưa bác sĩ, bệnh nhân 911 nam 27 tuổi quốc tịch Việt Nam ho đờm, chóng mặt, buồn nôn bị tiêu chảy
-    \item \textbf{Output}: Thưa bác\_sĩ , bệnh\_nhân 911 nam 27 tuổi quốc\_tịch Việt\_Nam ho đờm , chóng\_mặt , buồn\_nôn bị tiêu\_chảy
+\item \textbf{Input}: \textit{Thưa bác sĩ, bệnh nhân 911 nam 27 tuổi quốc tịch Việt Nam ho đờm, chóng mặt, buồn nôn bị tiêu chảy}
+\item \textbf{Output}: Thưa bác\_sĩ , bệnh\_nhân 911 nam 27 tuổi quốc\_tịch Việt\_Nam ho đờm , chóng\_mặt , buồn\_nôn bị tiêu\_chảy
 \end{itemize}
 
 \subsubsection{AutoTokenizer}
-Nhóm sử dụng tokenizer của ViHealthBERT để tokenize văn bản. Bao gồm features:
-\begin{itemize}
-    \item \textbf{input\_ids}.
-    \item \textbf{attention\_mask}.
-    \item \textbf{labels\_ids}.
-\end{itemize}
+Nhóm sử dụng tokenizer của ViHealthBERT để tokenize văn bản.
 \lstset{style=mystyle}
-\begin{lstlisting}[language=Python]
-max_seq_len = 70
-example = _create_examples(input_text, labels)
-
-pretrain_tokenizer = AutoTokenizer.from_pretrained("demdecuong/vihealthbert-base-word")
-
-feature = convert_examples_to_features(example, max_seq_len=max_seq_len,tokenizer=pretrain_tokenizer,pad_token_label_id=0)
-
-all_input_ids = torch.tensor([[f for f in feature[0].input_ids]], dtype=torch.long)
-
-all_attention_mask = torch.tensor([[f for f in feature[0].attention_mask]], dtype=torch.long)
-
-all_slot_labels_ids = torch.tensor([[f for f in feature[0].slot_labels_ids]], dtype=torch.long)
-\end{lstlisting}
+\lstinputlisting[language=Python]{source/tokenizer.py}
 
 \subsubsection{Layer classifier cho tác vụ NER}
-\begin{lstlisting}[language=Python]
-import torch.nn as nn
-class SlotClassifier(nn.Module):
-    def __init__(
-            self,
-            input_dim,
-            num_slot_labels,
-            dropout_rate=0.0,
-    ):
-        super(SlotClassifier, self).__init__()
-        self.num_slot_labels = num_slot_labels
-        self.dropout = nn.Dropout(dropout_rate)
-        self.linear = nn.Linear(input_dim, num_slot_labels)
-
-    def forward(self, x):
-        x = self.dropout(x)
-        return self.linear(x)
-\end{lstlisting}
+\lstinputlisting[language=Python]{source/ner-layer.py}
 
 \subsubsection{Kiến trúc ViHealthBERT}
-\begin{lstlisting}[language=Python]
-class ViHnBERT(RobertaPreTrainedModel):
-    def __init__(self, config, args, slot_label_lst):
-        super(ViHnBERT, self).__init__(config)
-        self.args = args
-        self.num_slot_labels = len(slot_label_lst)
-        self.roberta = RobertaModel(config)  # Load pretrained bert
+\lstinputlisting[language=Python]{source/vihealthbert.py}
 
-        self.slot_classifier = SlotClassifier(
-            config.hidden_size,
-            self.num_slot_labels,
-            args.dropout_rate,
-        )
-
-        if args.use_crf:
-            self.crf = CRF(num_tags=self.num_slot_labels, batch_first=True)
-\end{lstlisting}
-
-\subsubsection{Khởi tạo model với các tham số }
-\begin{lstlisting}[language=Python]
-with torch.no_grad():
-        inputs = {
-            "input_ids": all_input_ids,
-            "attention_mask": all_attention_mask,
-            "slot_labels_ids": all_slot_labels_ids,
-        }
-
-parser = argparse.ArgumentParser()
-parser.add_argument("--use_crf", action="store_true", help="Whether to use CRF")
-parser.add_argument("--dropout_rate", default=0.1, type=float, help="Dropout for fully-connected layers")
-args = parser.parse_args()
-
-config = RobertaConfig.from_pretrained('demdecuong/vihealthbert-base-word', finetuning_task='')
-
-target_model_save_path = os.path.join(os.path.dirname(__file__), 'model-save')
-
-model = ViHnBERT.from_pretrained(
-    target_model_save_path,
-    config=config,
-    args=args,
-    slot_label_lst=labels,
-)
-outputs = model(**inputs)
-\end{lstlisting}
+\subsubsection{Khởi tạo model}
+\lstinputlisting[language=Python]{source/init-model.py}
 
 Output từ model sẽ là label\_id của từ được phân đoạn ban đầu tương ứng với labels được định nghĩa của mô hình.
 \begin{lstlisting}[language=Python]
@@ -227,29 +137,11 @@ labels = ["O", "B-DATE", "I-DATE", "B-NAME", "B-AGE", "B-LOCATION", "I-LOCATION"
 \end{lstlisting}
 Ví dụ:
 \begin{itemize}
-    \item \textbf{Input}: Thưa bác sĩ, bệnh nhân 911 nam 27 tuổi quốc tịch Việt Nam ho đờm, chóng mặt, buồn nôn bị tiêu chảy.
-    \item \textbf{Output}:
-    % \begin{lstlisting}
-    % {"Thưa": "O", "bác\_sĩ": "O", ",": "O", "bệnh\_nhân": "O", "911": "B-PATIENT\_ID", "nam": "B-GENDER", "27": "B-AGE", "tuổi": "O", "quốc\_tịch": "O", "Việt\_Nam": "O", "ho": "B-SYMPTOM\_AND\_DISEASE", "đờm": "I-SYMPTOM\_AND\_DISEASE", "chóng\_mặt": "B-SYMPTOM\_AND\_DISEASE", "buồn\_nôn": "B-SYMPTOM\_AND\_DISEASE", "bị": "O", "tiêu\_chảy": "B-SYMPTOM\_AND\_DISEASE"}
-    % \end{lstlisting}
+\item \textbf{Input}: \textit{Thưa bác sĩ, bệnh nhân 911 nam 27 tuổi quốc tịch Việt Nam ho đờm, chóng mặt, buồn nôn bị tiêu chảy.}
+\item \textbf{Output}:
+\vietnameselst
+\lstinputlisting{source/json-output.json}
 \end{itemize}
 
 \subsubsection{Hàm trích xuất triệu chứng bệnh tương ứng với label \textbf{SYMPTOM\_AND\_DISEASE}.}
-\begin{lstlisting}[language=Python]
-def retrieve_symptoms(words, labels):
-    list_symptoms = []
-    current_label = []
-
-    assert len(words) == len(labels)
-
-    for i in range(len(words)):
-        if labels[i] == "B-SYMPTOM_AND_DISEASE":
-            if len(current_label) > 0:
-                current_label = [words[i]]
-                list_symptoms.append(" ".join(current_label).replace("_", " "))
-
-        if labels[i] == "I-SYMPTOM_AND_DISEASE":
-            current_label.append(words[i])
-
-    return list_symptoms
-\end{lstlisting}
+\lstinputlisting[language=Python]{source/symptom-extract.py}
