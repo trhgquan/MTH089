@@ -43,7 +43,12 @@ DATE & 2549 & 1103 & 1654 & 5306 \\
 \end{table}
 
 \subsubsection{Thông số huấn luyện và kết quả}
-Các thông số huấn luyện được mô tả trong bảng~\ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positive), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positive) và \textit{FN} là số lượng mẫu sai và được dự đoán sai (False Negative). Công thức tính Precision, Recall và F1-Score được định nghĩa như sau:
+Nhóm tác giả huấn luyện ViHealthBERT cho tác vụ NER bằng cách sử dụng pretraining weight của ViHealthBERT và
+\begin{itemize}
+\item Dựng một layer classifier đơn giản (Linear + Dropdown) hoặc
+\item Sử dụng một layer Conditional Random Field (CRF).
+\end{itemize}
+Ở đây nhóm tiến hành finetune ViHealthBERT theo cách đầu tiên, dựng một classifier layer đơn giản. Các thông số huấn luyện được mô tả trong bảng~\ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positive), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positive) và \textit{FN} là số lượng mẫu sai và được dự đoán sai (False Negative). Công thức tính Precision, Recall và F1-Score được định nghĩa như sau:
 \begin{equation*}
 \begin{aligned}
 Precision (P) &= \frac{TP}{TP + FP} \\
@@ -107,31 +112,46 @@ Từ mô hình đã huấn luyện, nhóm tiến hành xây dựng ứng dụng 
 Cài đặt cụ thể của ứng dụng sẽ được nêu chi tiết ở các phần sau.
 
 \subsubsection{VnCoreNLP và word segmentation}
-Từ hướng dẫn của nhóm tác giả bài báo ViHealthBERT, nhóm dùng công cụ VnCoreNLP để thực hiện tác vụ phân định ranh giới từ (word segmentation).
+ Với đầu vào là đoạn văn bản \texttt{text}, nhóm dùng công cụ VnCoreNLP\footnote{\href{https://github.com/vncorenlp/VnCoreNLP}{https://github.com/vncorenlp/VnCoreNLP}} để thực hiện tác vụ tách từ (word segmentation).
 
 \lstset{style=mystyle}
 \lstinputlisting[language=Python]{source/segmentation.py}
 Ví dụ:
 \begin{itemize}
-\item \textbf{Input}: \textit{Thưa bác sĩ, bệnh nhân 911 nam 27 tuổi quốc tịch Việt Nam ho đờm, chóng mặt, buồn nôn bị tiêu chảy}
+\item \textbf{Input}: 
+\textit{Thưa bác sĩ, bệnh nhân 911 nam 27 tuổi quốc tịch Việt Nam ho đờm, chóng mặt, buồn nôn bị tiêu chảy}
 \item \textbf{Output}: Thưa bác\_sĩ , bệnh\_nhân 911 nam 27 tuổi quốc\_tịch Việt\_Nam ho đờm , chóng\_mặt , buồn\_nôn bị tiêu\_chảy
 \end{itemize}
 
 \subsubsection{AutoTokenizer}
-Nhóm sử dụng tokenizer của ViHealthBERT để tokenize văn bản.
+Nhóm sử dụng tokenizer của ViHealthBERT để tokenize input. Theo code mẫu của nhóm tác giả:
+\begin{itemize}
+    \item \texttt{all\_input\_ids}: id của từng từ trong \texttt{input\_text}
+    \item \texttt{all\_attention\_mask}: attention mask của từng từ trong \texttt{input\_text}
+    \item \texttt{all\_slot\_labels\_ids}: id của từng nhãn cho mỗi từ.\footnote{Ngắn gọn hơn, đây là id của các nhãn NER.}
+\end{itemize} 
+Nhóm cũng đặt \texttt{max\_seq\_len = 70} - chiều dài tối đa của một sentence là 70 từ.
 \lstset{style=mystyle}
 \lstinputlisting[language=Python]{source/tokenizer.py}
 
 \subsubsection{Layer classifier cho tác vụ NER}
+Layer classifier cho tác vụ NER bao gồm 1 layer Linear và 1 layer Dropout:
 \lstinputlisting[language=Python]{source/ner-layer.py}
 
-\subsubsection{Kiến trúc ViHealthBERT}
+\subsubsection{Kiến trúc ViHealthBERT cho tác vụ NER}
+Kiến trúc ViHealthBERT cho tác vụ NER bao gồm 
+\begin{itemize}
+\item Backbone RoBERTa - PhoBERT.
+\item Layer classifier \textbf{hoặc} layer Conditional Random Field (CRF). Nếu dùng layer classifier thì hàm loss sử dụng là CrossEntropy, ngược lại dùng CRF thì hàm loss sử dụng là hàm negative log-likelihood.
+\end{itemize}
+
 \lstinputlisting[language=Python]{source/vihealthbert.py}
 
 \subsubsection{Khởi tạo model}
+Khởi tạo model với pretrained weight của ViHealthBERT và dùng layer classifier với \texttt{dropout rate = 0.1}.
 \lstinputlisting[language=Python]{source/init-model.py}
 
-Output từ model sẽ là label\_id của từ được phân đoạn ban đầu tương ứng với labels được định nghĩa của mô hình.
+Output từ model sẽ là \texttt{label\_id} của từ tương ứng với các \texttt{slot\_labels\_ids} là các nhãn được định nghĩa từ trước:
 \begin{lstlisting}[language=Python]
 labels = ["O", "B-DATE", "I-DATE", "B-NAME", "B-AGE", "B-LOCATION", "I-LOCATION", "B-JOB", "I-JOB","B-ORGANIZATION", "I-ORGANIZATION", "B-PATIENT_ID", "B-SYMPTOM_AND_DISEASE", "I-SYMPTOM_AND_DISEASE","B-GENDER", "B-TRANSPORTATION", "I-TRANSPORTATION", "I-NAME", "I-PATIENT_ID", "I-AGE", "I-GENDER"]
 \end{lstlisting}
@@ -143,5 +163,6 @@ Ví dụ:
 \lstinputlisting{source/json-output.json}
 \end{itemize}
 
-\subsubsection{Hàm trích xuất triệu chứng bệnh tương ứng với label \textbf{SYMPTOM\_AND\_DISEASE}.}
+\subsubsection{Hàm trích xuất triệu chứng bệnh (tương ứng với label \textbf{SYMPTOM\_AND\_DISEASE}).}
+Từ danh sách các từ và label tương ứng, ta tiến hành xây dựng một thuật toán đơn giản trích xuất các triệu chứng:
 \lstinputlisting[language=Python]{source/symptom-extract.py}

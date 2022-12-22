@@ -2,7 +2,7 @@
 \subsection{Clone project từ GitHub}
 Tiến hành clone project từ GitHub:
 \begin{lstlisting}
-git clone git@github.com:AnhVietPham/DemoViHealthBERT-NER.git
+git clone git@github.com:trhgquan/DemoViHealthBERT-NER.git
 \end{lstlisting}
 
 \subsection{Cài đặt và khởi chạy server}
@@ -22,9 +22,7 @@ pip install -r requirements.txt
 bash vncorenlp.sh
 \end{lstlisting}
 
-\item Download model nhóm đã huấn luyện tại  \href{https://drive.google.com/drive/u/2/folders/19AGLo-27EeuXDkKG2JstuCgrcwB0854r}{link này}
-
-\item Sau khi download model, ta giải nén model vào thư mục \texttt{model-save} sao cho cây thư mục của project có dạng như sau:
+\item Download model nhóm đã huấn luyện tại  \href{https://drive.google.com/drive/u/2/folders/19AGLo-27EeuXDkKG2JstuCgrcwB0854r}{link này}. Sau khi download model, ta giải nén model vào thư mục \texttt{model-save} sao cho cây thư mục của project có dạng như sau:
 \lstinputlisting{source/dir-tree.txt}
 
 \item Khởi chạy server
@@ -33,6 +31,8 @@ bash vncorenlp.sh
 python main.py 
 \end{lstlisting}
 \end{enumerate}
+Lưu ý, sau khi chạy server, ta cần ghi nhớ lại địa chỉ IP của server cho phần ứng dụng Web. Địa chỉ IP của server là địa chỉ được in ra màn hình terminal (xem hình~\ref{fig:runserver})
+
 \subsection{Cài đặt và khởi chạy phần ứng dụng web}
 \begin{enumerate}
 \item Cài đặt Flutter SDK (tham khảo tại \href{https://docs.flutter.dev/get-started/install}{link}).
@@ -43,6 +43,12 @@ python main.py
 flutter channel stable
 flutter upgrade
 \end{lstlisting}
+
+\item Sửa đường dẫn API thành IP của server.
+\begin{itemize}
+\item Mở file \texttt{web-demo-ner/lib/data/predict\_ner\_remote\_data\_source.dart}
+\item Sửa địa chỉ IP ở biến \texttt{serverUrl} thành địa chỉ IP của server (đã lưu bên trên). Minh họa cho bước sửa IP ở hình~\ref{fig:update-frontend}
+\end{itemize}
 
 \item Liệt kê danh sách các device có thể sử dụng để chạy ứng dụng Flutter.
 \begin{lstlisting}[language=bash]
@@ -59,6 +65,4 @@ flutter run -d chrome
 
 \subsection{Demo}
 Giao diện của ứng dụng sau khi khởi động sẽ như hình~\ref{fig:web-demo}. Với câu đầu vào \textit{Thưa bác sĩ, bệnh nhân 911 nam 27 tuổi quốc tịch Việt Nam ho đờm, chóng mặt, buồn nôn
-bị tiêu chảy}, kết quả của ứng dụng đưa ra sẽ như hình~\ref{fig:web-demo-result}
-\\\\
-Video demo của ứng dụng trên YouTube.
+bị tiêu chảy}, kết quả của ứng dụng đưa ra sẽ như hình~\ref{fig:web-demo-result}. Ngoài ra, nhóm có thực hiện một video demo ứng dụng, có trên \href{https://youtu.be/wpURv_DAAa4}{YouTube}
