@@ -1,4 +1,3 @@
-import torch.nn as nn
 class SlotClassifier(nn.Module):
     def __init__(
             self,

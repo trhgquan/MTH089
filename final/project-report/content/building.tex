@@ -43,19 +43,21 @@ DATE & 2549 & 1103 & 1654 & 5306 \\
 \end{table}
 
 \subsubsection{Thông số huấn luyện và kết quả}
-Nhóm tác giả huấn luyện ViHealthBERT cho tác vụ NER bằng cách sử dụng pretraining weight của ViHealthBERT và
+Nhóm tác giả finetune mô hình ViHealthBERT cho tác vụ NER bằng cách sử dụng pretraining weight của ViHealthBERT với
 \begin{itemize}
-\item Dựng một layer classifier đơn giản (Linear + Dropdown) hoặc
-\item Sử dụng một layer Conditional Random Field (CRF).
+\item Một layer classifier đơn giản (Linear + Dropdown) hoặc
+\item Một layer Conditional Random Field (CRF).
 \end{itemize}
-Ở đây nhóm tiến hành finetune ViHealthBERT theo cách đầu tiên, dựng một classifier layer đơn giản. Các thông số huấn luyện được mô tả trong bảng~\ref{tab:configurations}. Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Với \textit{TP} là số lượng mẫu đúng được dự đoán đúng (True Positive), \textit{FP} là số lượng mẫu đúng nhưng được dự đoán sai (False Positive) và \textit{FN} là số lượng mẫu sai và được dự đoán sai (False Negative). Công thức tính Precision, Recall và F1-Score được định nghĩa như sau:
-\begin{equation*}
+Ở đây nhóm tiến hành finetune ViHealthBERT theo cách đầu tiên (dựng một layer classifier đơn giản). Các thông số huấn luyện được mô tả trong bảng~\ref{tab:configurations}. 
+
+Nhóm sử dụng các độ đo Precision, Recall và F1-Score để đánh giá kết quả huấn luyện. Xét bài toán phân lớp với một lớp $C$ cố định. Với \textit{TP} là số lượng mẫu thuộc về lớp $C$ được gán nhãn đúng \textit{(True Positive)}, \textit{FP} là số lượng mẫu không thuộc lớp $C$ nhưng được gán nhãn đúng \textit{(False Positive)} và \textit{FN} là số lượng mẫu thuộc lớp $C$ và được gán nhãn sai \textit{(False Negative)}. Công thức tính Precision, Recall và F1-Score khi đó được định nghĩa như sau:
+\begin{equation}
 \begin{aligned}
-Precision (P) &= \frac{TP}{TP + FP} \\
-Recall (R) &= \frac{TP}{TP + FN} \\
+Precision~(P) &= \frac{TP}{TP + FP} \\
+Recall~(R) &= \frac{TP}{TP + FN} \\
 F1 &= \frac{2PR}{P + R}
 \end{aligned}
-\end{equation*}
+\end{equation}
 
 Mô hình sau khi huấn luyện đạt được 95\% Precision, 94\% Recall và 95\% F1-Score khi đối chiếu với tập test của bộ ngữ liệu PhoNER\_COVID-19 đã nhắc ở phần trên. Kết quả huấn luyện của mô hình được mô tả trong bảng~\ref{tab:results-test}.
 \begin{table}
@@ -148,7 +150,7 @@ Kiến trúc ViHealthBERT cho tác vụ NER bao gồm
 \lstinputlisting[language=Python]{source/vihealthbert.py}
 
 \subsubsection{Khởi tạo model}
-Khởi tạo model với pretrained weight của ViHealthBERT và dùng layer classifier với \texttt{dropout rate = 0.1}.
+Khởi tạo model với pretrained weight của ViHealthBERT\footnote{\href{https://huggingface.co/demdecuong/vihealthbert-base-word}{https://huggingface.co/demdecuong/vihealthbert-base-word}}, dùng layer classifier với \texttt{dropout rate = 0.1}.
 \lstinputlisting[language=Python]{source/init-model.py}
 
 Output từ model sẽ là \texttt{label\_id} của từ tương ứng với các \texttt{slot\_labels\_ids} là các nhãn được định nghĩa từ trước:
